@@ -5,7 +5,8 @@ vagrant_dir=/vagrant
 vagrant_conf_dir=vagrant
 random_pw=false
 vagrant_nginx=vagrant-nginx.conf
-packages="nginx-full"
+packages="nginx-full nodejs npm"
+global_npm_packages="gulp gulp-cli typescript"
 remote_ip=$(ip route get 8.8.8.8 | head -n1 | cut -d' ' -f3)
 for ifname in enp0s3 eth0 ; do
   local_ip=$(ip -4 -o addr show $ifname | cut -d' ' -f7 | cut -d'/' -f1) 
@@ -26,6 +27,14 @@ fi
 apt-get update
 if [ ! -z $packages ] ; then
   apt-get install -y $packages 
+fi
+
+#create system link between nodejs and node
+ln -s /usr/bin/nodejs /usr/bin/node
+
+#install global node packages
+if [ ! -z $global_npm_packages ] ; then
+    npm i -g $global_npm_packages
 fi
 
 # If $vagrant_conf_dir/$vagrant_nginxexists, add it to the NGINX config and do PHP setup as well
