@@ -24,18 +24,14 @@ if [ -f .env ] ; then
   . .env
 fi
 
-apt-get update
-if [ ! -z $packages ] ; then
-  apt-get install -y $packages 
-fi
+apt-get update && apt-get install -y $packages
 
 #create system link between nodejs and node
 ln -s /usr/bin/nodejs /usr/bin/node
 
 #install global node packages
-if [ ! -z $global_npm_packages ] ; then
-    npm i -g $global_npm_packages
-fi
+npm i -g $global_npm_packages
+
 
 # If $vagrant_conf_dir/$vagrant_nginxexists, add it to the NGINX config and do PHP setup as well
 if [ -e $vagrant_conf_dir/$vagrant_nginx ] ; then

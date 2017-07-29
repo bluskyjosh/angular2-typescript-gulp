@@ -6,8 +6,7 @@
     "clean": "gulp clean",
     "compile": "gulp compile",
     "build": "gulp build",
-    "start": "concurrent --kill-others \"gulp watch\" \"lite-server\"",
-    "postinstall": "typings install"
+    "start": "concurrent --kill-others \"gulp watch\" \"lite-server\""
   },
   "repository": {
     "type": "git",
@@ -39,7 +38,6 @@
   },
   "devDependencies": {
     "@types/node": "^6.0.60",
-    "angular2-http-testing": "^1.1.0",
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.6",
     "concurrently": "^3.1.0",
