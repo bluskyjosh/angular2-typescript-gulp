@@ -2,6 +2,8 @@ import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { SidebarModule } from 'ng-sidebar';
+import { DataTableModule } from 'angular-4-data-table';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers/index';
@@ -12,18 +14,21 @@ import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
 import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
-import {AlertService, AuthenticationService, UserService} from './_services/index';
+import { AuthGuard, NavGuard } from './_guards/index';
+import {AlertService, AuthenticationService, UserService, NavigatorService} from './_services/index';
 import {HomeComponent} from './home/index';
 import {LoginComponent} from './login/index';
 import {RegisterComponent} from './register/index';
+import {UserListComponent} from './user/index';
 
 
 @NgModule({
     imports: [
         BrowserModule,
+        DataTableModule,
         FormsModule,
         HttpModule,
+        SidebarModule.forRoot(),
         routing
     ],
     declarations: [
@@ -31,13 +36,16 @@ import {RegisterComponent} from './register/index';
         AlertComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        UserListComponent
     ],
     providers: [
         AuthGuard,
+        NavGuard,
         AlertService,
         AuthenticationService,
         UserService,
+        NavigatorService,
 
         fakeBackendProvider,
         MockBackend,

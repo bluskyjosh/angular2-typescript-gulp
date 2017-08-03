@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: $imp-gray-light;
+    color: $imp-gray-dark;
+    font:  $fonts;
+}
+
+.container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 30px;
+    width: 100%;
+
+}
+
+::selection {
+    background-color: $imp-blue;
+    color: $white;
+}
+
+a {
+    color: $imp-blue;
+    text-decoration: none;
+
+    &:hover {
+        border-bottom: 1px dotted $imp-blue;
+}
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+h1,
+h2 {
+    font-weight: 300;
+}
+
+h1 {
+    border-bottom: 1px dotted $imp-blue;
+    display: block;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    margin: 0.5rem 0;
+}

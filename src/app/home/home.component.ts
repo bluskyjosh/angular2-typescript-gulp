@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
 
+
     constructor(private userService: UserService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }

@@ -19,6 +19,8 @@
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             // other libraries
+            'angular-4-data-table':'npm:angular-4-data-table',
+            'ng-sidebar': 'npm:ng-sidebar',
             'rxjs': 'npm:rxjs'
         },
         // packages tells the System loader how to load when no filename and/or no extension
@@ -26,6 +28,14 @@
             app: {
                 main: './main.js',
                 defaultExtension: 'js'
+            },
+            'angular-4-data-table':{
+                main: 'dist/index',
+                defaultExtension:'js'
+            },
+            'ng-sidebar':{
+                main: 'lib/index',
+                defaultExtension:'js'
             },
             rxjs: {
                 defaultExtension: 'js'

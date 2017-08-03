@@ -1,7 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
+import {Response} from '@angular/http';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
+import { Message } from '../_models/index';
 
 @Injectable()
 export class AlertService {
@@ -25,15 +27,21 @@ export class AlertService {
 
     success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message });
+        this.subject.next({ type: 'success', text: message});
     }
 
-    error(message: string, keepAfterNavigationChange = false) {
+    error(message: Message, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message });
+        this.subject.next({ type: 'error', text: message.message });
     }
 
     getMessage(): Observable<any> {
         return this.subject.asObservable();
+    }
+
+    messageParse(response: Response) : Message {
+        var message : Message;
+        message = response.json();
+        return message;
     }
 }

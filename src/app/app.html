@@ -1,19 +1,92 @@
+<!--Container for Sidebar + page content-->
+<ng-sidebar-container>
+    <!--A Sidebar-->
+    <ng-sidebar
+            [(opened)]="_sidebarOptions.opened"
+            [mode]="_sidebarOptions.mode"
+            [dock]="_sidebarOptions.dock"
+            [position]="_sidebarOptions.position"
+            [autoCollapseHeight]="_sidebarOptions.autoCollapseHeight"
+            [autoCollapseWidth]="_sidebarOptions.autoCollapseWidth"
+            [animate]="_sidebarOptions.animate"
+            [sidebarClass]="_sidebarOptions.sidebarClass"
+            [ariaLabel]="_sidebarOptions.ariaLabel"
+            [trapFocus]="_sidebarOptions.trapFocus"
+            [autoFocus]="_sidebarOptions.autoFocus"
+            [showBackdrop]="_sidebarOptions.showBackdrop"
+            [closeOnClickBackdrop]="_sidebarOptions.closeOnClickBackdrop"
+            [closeOnClickOutside]="_sidebarOptions.closeOnClickOutside"
+            [keyClose]="_sidebarOptions.keyClose"
+            [keyCode]="_sidebarOptions.keyCode"
+            *ngIf="showNavigation">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Menu</h3>
+            </div>
+        </div>
+        <p><a [routerLink]="['/login']">Logout</a></p>
+        <div class="row">
+            <div class="col-sm-12">
+                <a [routerLink]="['/account_settings']">Account Settings</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>Classes</h5>
+                <p><a [routerLink]="['/class_calendar']">Class Calendar</a></p>
+                <p><a [routerLink]="['/class_list']">Class List</a></p>
+                <p><a [routerLink]="['/class_templates']">Class Templates</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>Participant Info</h5>
+                <p><a [routerLink]="['/participants']">Participants</a></p>
+                <p><a [routerLink]="['/survey_sessions']">Survey Sessions</a></p>
+                <p><a [routerLink]="['/survey_invites']">Survey Invitations</a></p>
+                <p><a [routerLink]="['/notifications']">Notification Logs</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>Templates</h5>
+                <p><a [routerLink]="['/message_templates']">Message Templates</a></p>
+                <p><a [routerLink]="['/report_templates']">Report Templates</a></p>
+                <p><a [routerLink]="['/survey_templates']">Survey Templates</a></p>
+                <p><a [routerLink]="['/treatment_cycle_templates']">Treatment Cycle Templates</a></p>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-12">
+                <h5>Admin Features</h5>
+                <p><a [routerLink]="['/normative_items']">Normative Items</a></p>
+                <p><a [routerLink]="['/organization']">Organization Settings</a></p>
+                <p><a [routerLink]="['/users']">Users</a></p>
+            </div>
+        </div>
+
+    </ng-sidebar>
+
 <!-- main app container -->
-<div class="jumbotron">
+<div ng-sidebar-content class="contents">
+    <header class="app-header">
+        <div *ngIf="showNavigation">
+            <button class="header__toggle" (click)="_toggleSidebar()">
+                Toggle Sidebar
+            </button>
+        </div>
+    </header>
     <div class="container">
-        <div class="col-sm-8 col-sm-offset-2">
-            <alert></alert>
-            <router-outlet></router-outlet>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <alert></alert>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>
-
-<!-- credits -->
-<div class="text-center">
-    <p>
-        <a href="http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial" target="_top">Angular 2 User Registration and Login Example & Tutorial</a>
-    </p>
-    <p>
-        <a href="http://jasonwatmore.com" target="_top">JasonWatmore.com</a>
-    </p>
-</div>
+</ng-sidebar-container>

@@ -1,0 +1,74 @@
+@charset "utf-8";
+@import "variables.scss";
+@import "shared/all";
+@import "login/login";
+
+
+.loading {
+  padding: 1em;
+}
+
+app {
+  height: 100%;
+  width: 100%;
+}
+
+.app-header {
+  align-items: center;
+  background: $imp-blue;
+  box-shadow: 0 0.1em 1.5em rgba($imp-gray-dark, 0.5);
+  color: $white;
+  display: flex;
+  padding: 1em;
+}
+
+  .header__toggle {
+    background: transparent;
+    border: 0.15rem solid $white;
+    border-left: 0;
+    border-right: 0;
+    cursor: pointer;
+    font-size: 0;
+    height: 1.5rem;
+    margin-right: 1rem;
+    position: relative;
+    width: 2rem;
+
+    &::after {
+      background: $white;
+      content: '';
+      height: 0.15rem;
+      left: 0;
+      margin-top: -0.075rem;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+  }
+}
+
+
+.sidebar {
+  background-color: $imp-gray-lighter;
+  padding: 2em 1em;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  min-width: 300px;
+}
+
+.contents {
+  padding: 0;
+}
+
+.toggle-control {
+  background-color: $imp-gray-lighter;
+  border: 1px solid $imp-gray-dark;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background-color: $imp-gray-dark;
+    color: $white;
+  }
+}
+

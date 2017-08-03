@@ -1,0 +1,64 @@
+<div class="row">
+    <h2>Users</h2>
+    <div class="col-sm-4">
+        <input placeholder="Search"
+               class="form-control" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <data-table id="users-grid"
+                    [items]="users"
+                    [itemCount]="userCount"
+                    (reload)="reloadItems($event)"
+
+                    [limit]="10"
+                    [sortBy]="'username'"
+                    [sortAsc]="true"
+
+                    [indexColumn]="true"
+                    [substituteRows]="true"
+                    [translations]="translations"
+        >
+            <data-table-column
+                    [property]="'username'"
+                    [header]="'Username'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'email'"
+                    [header]="'Email Address'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'last_name'"
+                    [header]="'Last Name'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'first_name'"
+                    [header]="'First Name'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'role_id'"
+                    [header]="'Role'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                [header]="Delete"
+                [sortable]="false"
+                [resizable]="false">
+                <ng-template #dataTableCell let-item="item">
+                    <i class="fa fa-trash pull-right" (click)="deleteUser(item.id,$event)" title="Delete User"></i>
+                </ng-template>
+
+            </data-table-column>
+        </data-table>
+    </div>
+</div>

@@ -6,6 +6,7 @@ const tsc = require("gulp-typescript");
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject("tsconfig.json");
 const tslint = require('gulp-tslint');
+const sass = require('gulp-sass');
 
 /**
  * Remove build directory.
@@ -40,10 +41,28 @@ gulp.task("compile", ["tslint"], () => {
 /**
  * Copy all resources that are not TypeScript files into build directory.
  */
-gulp.task("resources", () => {
-    return gulp.src(["src/**/*", "!**/*.ts"])
-        .pipe(gulp.dest("build"));
+gulp.task("resources", ["html","scss"],() => {
+    console.log("Resources completed");
 });
+
+gulp.task("html", () => {
+    return gulp.src(["src/**/*.html","src/**/*.js"])
+        .pipe(gulp.dest("build"));
+
+});
+
+gulp.task("scss", () =>{
+    gulp.src("src/css/*.scss")
+        .pipe(sass(
+            {
+                linefeed: 'lf',
+                outputStyle: 'compressed',
+                precision: 3,
+            }
+        ))
+        .pipe(gulp.dest("build/css"));
+});
+
 
 /**
  * Copy all required libraries into build directory.
@@ -56,7 +75,9 @@ gulp.task("libs", () => {
             'reflect-metadata/Reflect.js',
             'rxjs/**/*.js',
             'zone.js/dist/**',
-            '@angular/**/bundles/**'
+            '@angular/**/bundles/**',
+            'angular-4-data-table/**',
+            'ng-sidebar/**/*.js'
         ], {cwd: "node_modules/**"}) /* Glob required here. */
         .pipe(gulp.dest("build/lib"));
 });
@@ -68,9 +89,10 @@ gulp.task('watch', function () {
     gulp.watch(["src/**/*.ts"], ['compile']).on('change', function (e) {
         console.log('TypeScript file ' + e.path + ' has been changed. Compiling.');
     });
-    gulp.watch(["src/**/*.html", "src/**/*.css"], ['resources']).on('change', function (e) {
+    gulp.watch(["src/**/*.html", "src/**/*.css", "src/**/*.scss"], ['resources']).on('change', function (e) {
         console.log('Resource file ' + e.path + ' has been changed. Updating.');
     });
+    
 });
 
 /**
@@ -79,3 +101,5 @@ gulp.task('watch', function () {
 gulp.task("build", ['compile', 'resources', 'libs'], () => {
     console.log("Building the project ...");
 });
+
+gulp.task("start", ["build", "watch"]);

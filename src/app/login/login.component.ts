@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import {Message} from '../_models/index';
 import { AlertService, AuthenticationService } from '../_services/index';
 
 @Component({
@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
+    Message : Message;
 
     constructor(
         private route: ActivatedRoute,
@@ -32,10 +33,15 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.authenticationService.setCurrentUser().subscribe(
+                        data => {
+                            this.router.navigate([this.returnUrl]);
+                        }
+                    );
                 },
                 error => {
-                    this.alertService.error(error);
+
+                    this.alertService.error(this.alertService.messageParse(error));
                     this.loading = false;
                 });
     }
