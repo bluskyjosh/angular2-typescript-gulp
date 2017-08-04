@@ -33,8 +33,13 @@
                     [sortable]="false"
                     [width]="50"
                     [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    View/ Edit
+                </ng-template>
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Class"></i>
+                    <div class="text-center">
+                        <i class="btn fa fa-pencil-square-o" (click)="editItem(item.id,$event)" title="Edit Class"></i>
+                    </div>
                 </ng-template>
             </data-table-column>
 

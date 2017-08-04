@@ -23,20 +23,30 @@
             <data-table-column
                     [header]="Preview"
                     [sortable]="false"
-                    [width]="50"
+                    [width]="70"
                     [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    Preview
+                </ng-template>
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-search pull-left" (click)="viewItem(item.id,$event)" title="Preview Survey"></i>
+                    <div class="text-center">
+                        <i class="btn fa fa-search" (click)="viewItem(item.id,$event)" title="Preview Survey"></i>
+                    </div>
                 </ng-template>
             </data-table-column>
 
             <data-table-column
                     [header]="Edit"
                     [sortable]="false"
-                    [width]="50"
+                    [width]="70"
                     [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    Design/ Edit
+                </ng-template>
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Survey Template"></i>
+                    <div class="text-center">
+                        <i class="btn fa fa-pencil-square-o" (click)="editItem(item.id,$event)" title="Edit Survey Template"></i>
+                    </div>
                 </ng-template>
             </data-table-column>
 
