@@ -12,7 +12,7 @@ import { UserService } from '../_services/index';
 })
 
 export class UserListComponent implements OnInit {
-    userResource: DataTableResource<User>;
+    userResource: DataTableResource<User> = null;
     currentUser: User;
     users: User[] = [];
     userCount:number = 0;
@@ -37,18 +37,26 @@ export class UserListComponent implements OnInit {
     }
 
     reloadItems(params: DataTableParams) {
-        this.loadAllUsers(params);
+        if (this.userResource == null) {
+            this.loadAllUsers(params);
+        } else {
+            this.queryDataSource(params);
+        }
     }
 
     deleteUser(id: number) {
         this.userService.delete(id).subscribe(() => { this.loadAllUsers(this.userTable.displayParams); });
     }
 
+    private queryDataSource (params: DataTableParams) {
+        this.userResource.query(params).then(users => this.users = users);
+        this.userResource.count().then(count => this.userCount = count);
+    }
+
     private loadAllUsers(params: DataTableParams) {
         this.userService.getAll().subscribe(users => {
             this.userResource = new DataTableResource<User>(users);
-            this.userResource.query(params).then(users => this.users = users);
-            this.userResource.count().then(count => this.userCount = count);
+            this.queryDataSource(params);
         });
     }
 

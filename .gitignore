@@ -1,4 +1,8 @@
+.env
+.vagrant
 .idea
 build
 node_modules
 typings
+ubuntu-xenial-16.04-cloudimg-console.log
+npm-debug.log*

@@ -9,11 +9,17 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class NavigatorService {
     private showNavigation: Subject<boolean>;
+    private shutNavigation: Subject<boolean>;
     constructor() {
         this.showNavigation = <Subject<boolean>>new Subject();
+        this.shutNavigation = <Subject<boolean>>new Subject();
     }
     get displayNavigation() : Observable<boolean> {
         return this.showNavigation.asObservable();
+    }
+
+    get closeNavigation() : Observable<boolean> {
+        return this.shutNavigation.asObservable();
     }
     toggleNavigation(urlPath: string) {
         let showNav: boolean;
@@ -22,7 +28,7 @@ export class NavigatorService {
         } else {
             showNav = true;
         }
-        console.log(showNav);
         this.showNavigation.next(showNav);
+        this.shutNavigation.next(false);
     }
 }

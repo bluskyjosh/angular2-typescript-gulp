@@ -20,6 +20,9 @@ import {HomeComponent} from './home/index';
 import {LoginComponent} from './login/index';
 import {RegisterComponent} from './register/index';
 import {UserListComponent} from './user/index';
+import {ClassListComponent} from "./classes/class.list.component";
+import {ClassService} from "./_services/class.service";
+
 
 
 @NgModule({
@@ -34,6 +37,7 @@ import {UserListComponent} from './user/index';
     declarations: [
         AppComponent,
         AlertComponent,
+        ClassListComponent,
         HomeComponent,
         LoginComponent,
         RegisterComponent,
@@ -44,6 +48,7 @@ import {UserListComponent} from './user/index';
         NavGuard,
         AlertService,
         AuthenticationService,
+        ClassService,
         UserService,
         NavigatorService,
 

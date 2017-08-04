@@ -16,10 +16,20 @@
                     [sortBy]="'username'"
                     [sortAsc]="true"
 
-                    [indexColumn]="true"
+                    [indexColumn]="false"
                     [substituteRows]="true"
                     [translations]="translations"
         >
+            <data-table-column
+                    [header]="Edit"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableCell let-item="item">
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editUser(item.id,$event)" title="Edit User"></i>
+                </ng-template>
+            </data-table-column>
+
             <data-table-column
                     [property]="'username'"
                     [header]="'Username'"
@@ -45,7 +55,7 @@
                     [resizable]="false">
             </data-table-column>
             <data-table-column
-                    [property]="'role_id'"
+                    [property]="'role_name'"
                     [header]="'Role'"
                     [sortable]="true"
                     [resizable]="false">
@@ -53,9 +63,10 @@
             <data-table-column
                 [header]="Delete"
                 [sortable]="false"
+                [width]="50"
                 [resizable]="false">
                 <ng-template #dataTableCell let-item="item">
-                    <i class="fa fa-trash pull-right" (click)="deleteUser(item.id,$event)" title="Delete User"></i>
+                    <i class="btn fa fa-trash pull-right" (click)="deleteUser(item.id,$event)" title="Delete User"></i>
                 </ng-template>
 
             </data-table-column>

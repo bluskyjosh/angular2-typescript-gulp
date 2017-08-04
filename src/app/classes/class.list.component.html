@@ -1,0 +1,113 @@
+<div class="row">
+    <h2>Classes</h2>
+    <div class="col-sm-4">
+        <input placeholder="Search"
+               class="form-control" />
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-default"(click)="advancedSearch()">Advanced Search</button>
+    </div>
+    <div class="col-sm-2 pull-right">
+        <button class="btn btn-default" (click)="editSelected()">Edit Selected</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <data-table id="users-grid"
+                    [items]="classes"
+                    [itemCount]="classCount"
+                    (reload)="reloadItems($event)"
+
+                    [limit]="10"
+                    [sortBy]="'start'"
+                    [sortAsc]="false"
+
+                    [selectColumn]="true"
+                    [multiSelect]="true"
+                    [indexColumn]="false"
+                    [substituteRows]="true"
+                    [translations]="translations"
+        >
+            <data-table-column
+                    [header]="Edit"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableCell let-item="item">
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editClass(item.id,$event)" title="Edit User"></i>
+                </ng-template>
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'id'"
+                    [header]="'Id'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'course_id'"
+                    [header]="'Course'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'name'"
+                    [header]="'Name'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+           <data-table-column
+                    [property]="'start'"
+                    [header]="'Start Date & Time'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'duration'"
+                    [header]="'Duration'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'provider_id'"
+                    [header]="'Provider'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'location'"
+                    [header]="'Location'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'capacity'"
+                    [header]="'Capacity'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'description'"
+                    [header]="'Description'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right" [hidden]="!item.can_delete" (click)="deleteClass(item.id,$event)" title="Delete User"></i>
+                </ng-template>
+
+            </data-table-column>
+        </data-table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 pull-right">
+        <p>Export Controls Eventually</p>
+    </div>
+</div>

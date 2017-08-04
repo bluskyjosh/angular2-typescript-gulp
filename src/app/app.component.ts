@@ -37,7 +37,10 @@ export class AppComponent implements OnInit {
     constructor(private navigatorService: NavigatorService) { }
 
     ngOnInit() {
-        this.navigatorService.displayNavigation.subscribe(res => this.showNavigation = res );
+        this._sidebarOptions.opened = false;
+        this.navigatorService.displayNavigation.subscribe(
+            res => this.showNavigation = res );
+        this.navigatorService.closeNavigation.subscribe(res => this._sidebarOptions.opened = res );
     }
 
     private _toggleSidebar() {

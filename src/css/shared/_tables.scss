@@ -1,3 +1,7 @@
 table {
   background-color: $imp-gray-lighter;
+
+  th,tr {
+    height: $row-height;
+  }
 }

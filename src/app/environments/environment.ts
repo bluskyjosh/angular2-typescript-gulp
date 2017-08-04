@@ -3,5 +3,5 @@
  */
 export class AppSettings {
     public static production = false;
-    public static apiUrl = 'http://impact.api.app:8000/v1/staff/';
+    public static apiUrl = 'http://localhost:8000/v1/staff/';
 };

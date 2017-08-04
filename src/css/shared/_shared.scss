@@ -16,6 +16,10 @@ body {
     font:  $fonts;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 .container {
     margin-left: 0;
     margin-right: 0;

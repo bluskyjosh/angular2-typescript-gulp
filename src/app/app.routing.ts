@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
+import {ClassListComponent} from "./classes/class.list.component";
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -8,6 +9,7 @@ import { AuthGuard, NavGuard } from './_guards/index';
 
 const appRoutes: Routes = [
     //Authenticated Routes
+    { path: 'classes', component: ClassListComponent, canActivate: [AuthGuard, NavGuard]},
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard, NavGuard] },
     { path: 'users', component: UserListComponent, canActivate: [AuthGuard, NavGuard] },
 
