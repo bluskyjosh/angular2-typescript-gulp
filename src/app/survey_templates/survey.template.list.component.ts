@@ -1,21 +1,19 @@
-/**
- * Created by Josh Vogel on 8/1/2017.
- */
+
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { ClassObject, User } from '../_models/index';
+import { SurveyTemplate, User } from '../_models/index';
 import { DataTable, DataTableResource, DataTableTranslations, DataTableParams } from 'angular-4-data-table';
-import { ClassService } from '../_services/index';
+import {SurveyTemplateService} from "../_services/index";
 
 @Component({
     moduleId: module.id,
-    templateUrl: './class.list.component.html'
+    templateUrl: './survey.template.list.component.html'
 })
 
-export class ClassListComponent implements OnInit {
-    dataResource: DataTableResource<ClassObject> = null;
+export class SurveyTemplateListComponent implements OnInit {
+    dataResource: DataTableResource<SurveyTemplate> = null;
     currentUser: User;
-    classes: ClassObject[] = [];
-    classCount:number = 0;
+    surveyTemplates: SurveyTemplate[] = [];
+    surveyTemplateCount:number = 0;
 
     translations = <DataTableTranslations> {
         indexColumn: 'Index column',
@@ -29,7 +27,7 @@ export class ClassListComponent implements OnInit {
     @ViewChild(DataTable) viewTable: DataTable;
 
 
-    constructor(private ClassService: ClassService) {
+    constructor(private SurveyTemplateService: SurveyTemplateService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -45,18 +43,17 @@ export class ClassListComponent implements OnInit {
     }
 
     deleteItem(id: number) {
-        this.ClassService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
+        this.SurveyTemplateService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
     }
 
     private queryDataSource (params: DataTableParams) {
-        this.dataResource.query(params).then(classes => this.classes = classes);
-        this.dataResource.count().then(count => this.classCount = count);
+        this.dataResource.query(params).then(surveyTemplates => this.surveyTemplates = surveyTemplates);
+        this.dataResource.count().then(count => this.surveyTemplateCount = count);
     }
 
     private loadAll(params: DataTableParams) {
-        this.ClassService.getAll().subscribe(classes => {
-            this.dataResource = new DataTableResource<ClassObject>(classes);
-            this.dataResource = new DataTableResource<ClassObject>(classes);
+        this.SurveyTemplateService.getAll().subscribe(surveyTemplates => {
+            this.dataResource = new DataTableResource<SurveyTemplate>(surveyTemplates);
             this.queryDataSource(params);
         });
     }

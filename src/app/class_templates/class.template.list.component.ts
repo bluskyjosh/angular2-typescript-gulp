@@ -2,20 +2,20 @@
  * Created by Josh Vogel on 8/1/2017.
  */
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { ClassObject, User } from '../_models/index';
+import { ClassTemplate, User } from '../_models/index';
 import { DataTable, DataTableResource, DataTableTranslations, DataTableParams } from 'angular-4-data-table';
-import { ClassService } from '../_services/index';
+import { ClassTemplateService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
-    templateUrl: './class.list.component.html'
+    templateUrl: './class.template.list.component.html'
 })
 
-export class ClassListComponent implements OnInit {
-    dataResource: DataTableResource<ClassObject> = null;
+export class ClassTemplateListComponent implements OnInit {
+    dataResource: DataTableResource<ClassTemplate> = null;
     currentUser: User;
-    classes: ClassObject[] = [];
-    classCount:number = 0;
+    classTemplates: ClassTemplate[] = [];
+    classTemplateCount:number = 0;
 
     translations = <DataTableTranslations> {
         indexColumn: 'Index column',
@@ -29,7 +29,7 @@ export class ClassListComponent implements OnInit {
     @ViewChild(DataTable) viewTable: DataTable;
 
 
-    constructor(private ClassService: ClassService) {
+    constructor(private ClassTemplateService: ClassTemplateService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -45,18 +45,17 @@ export class ClassListComponent implements OnInit {
     }
 
     deleteItem(id: number) {
-        this.ClassService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
+        this.ClassTemplateService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
     }
 
     private queryDataSource (params: DataTableParams) {
-        this.dataResource.query(params).then(classes => this.classes = classes);
-        this.dataResource.count().then(count => this.classCount = count);
+        this.dataResource.query(params).then(class_templates => this.classTemplates = class_templates);
+        this.dataResource.count().then(count => this.classTemplateCount = count);
     }
 
     private loadAll(params: DataTableParams) {
-        this.ClassService.getAll().subscribe(classes => {
-            this.dataResource = new DataTableResource<ClassObject>(classes);
-            this.dataResource = new DataTableResource<ClassObject>(classes);
+        this.ClassTemplateService.getAll().subscribe(class_templates => {
+            this.dataResource = new DataTableResource<ClassTemplate>(class_templates);
             this.queryDataSource(params);
         });
     }

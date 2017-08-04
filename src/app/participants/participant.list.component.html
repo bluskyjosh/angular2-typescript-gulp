@@ -1,19 +1,28 @@
 <div class="row">
-    <h2>Users</h2>
+    <h2>Participants</h2>
     <div class="col-sm-4">
         <input placeholder="Search"
                class="form-control" />
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-default">Advanced Search</button>
+    </div>
+    <div class="col-sm-4 col-sm-offset-2 pull-right">
+        <div class="btn-group pull-right">
+            <button class="btn btn-default">Export</button>
+            <button class="btn btn-default">Import Participants</button>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
         <data-table id="users-grid"
-                    [items]="users"
-                    [itemCount]="userCount"
+                    [items]="participants"
+                    [itemCount]="participantCount"
                     (reload)="reloadItems($event)"
 
                     [limit]="10"
-                    [sortBy]="'username'"
+                    [sortBy]="'identifier'"
                     [sortAsc]="true"
 
                     [indexColumn]="false"
@@ -26,50 +35,62 @@
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit User"></i>
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Participant"></i>
                 </ng-template>
             </data-table-column>
 
             <data-table-column
-                    [property]="'username'"
-                    [header]="'Username'"
+                    [property]="'identifier'"
+                    [header]="'Identifier'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
-            <data-table-column
-                    [property]="'email'"
-                    [header]="'Email Address'"
-                    [sortable]="true"
-                    [resizable]="false">
-            </data-table-column>
-            <data-table-column
-                    [property]="'last_name'"
-                    [header]="'Last Name'"
-                    [sortable]="true"
-                    [resizable]="false">
-            </data-table-column>
+
             <data-table-column
                     [property]="'first_name'"
                     [header]="'First Name'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'role_name'"
-                    [header]="'Role'"
+                    [property]="'last_name'"
+                    [header]="'Last Name'"
+                    [sortable]="true"
+                    [resizable]="false"></data-table-column>
+
+            <data-table-column
+                    [property]="'email'"
+                    [header]="'Email'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                [header]="Delete"
-                [sortable]="false"
-                [width]="50"
-                [resizable]="false">
+                    [property]="'created_at'"
+                    [header]="'Create Date'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'created_by_id'"
+                    [header]="'Created By'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add User"></i>
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
                 </ng-template>
-                <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-trash pull-right" (click)="deleteItem(item.id,$event)" title="Delete User"></i>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
                 </ng-template>
 
             </data-table-column>

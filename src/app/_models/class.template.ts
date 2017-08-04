@@ -1,4 +1,4 @@
-export class ClassModel {
+export class ClassTemplate {
     id: number;
     organization_id: number;
     course_id: number;

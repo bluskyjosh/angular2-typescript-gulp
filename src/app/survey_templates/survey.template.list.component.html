@@ -1,5 +1,5 @@
 <div class="row">
-    <h2>Users</h2>
+    <h2>Survey Templates</h2>
     <div class="col-sm-4">
         <input placeholder="Search"
                class="form-control" />
@@ -8,12 +8,12 @@
 <div class="row">
     <div class="col-sm-12">
         <data-table id="users-grid"
-                    [items]="users"
-                    [itemCount]="userCount"
+                    [items]="surveyTemplates"
+                    [itemCount]="surveyTemplateCount"
                     (reload)="reloadItems($event)"
 
                     [limit]="10"
-                    [sortBy]="'username'"
+                    [sortBy]="'name'"
                     [sortAsc]="true"
 
                     [indexColumn]="false"
@@ -21,58 +21,62 @@
                     [translations]="translations"
         >
             <data-table-column
+                    [header]="Preview"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableCell let-item="item">
+                    <i class="btn fa fa-search pull-left" (click)="viewItem(item.id,$event)" title="Preview Survey"></i>
+                </ng-template>
+            </data-table-column>
+
+            <data-table-column
                     [header]="Edit"
                     [sortable]="false"
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit User"></i>
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Survey Template"></i>
                 </ng-template>
             </data-table-column>
 
             <data-table-column
-                    [property]="'username'"
-                    [header]="'Username'"
+                    [property]="'title'"
+                    [header]="'Name'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'email'"
-                    [header]="'Email Address'"
+                    [property]="'description'"
+                    [header]="'Description'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'last_name'"
-                    [header]="'Last Name'"
+                    [property]="'published'"
+                    [header]="'Published?'"
                     [sortable]="true"
+                    [width]="115"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'first_name'"
-                    [header]="'First Name'"
-                    [sortable]="true"
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
                     [resizable]="false">
-            </data-table-column>
-            <data-table-column
-                    [property]="'role_name'"
-                    [header]="'Role'"
-                    [sortable]="true"
-                    [resizable]="false">
-            </data-table-column>
-            <data-table-column
-                [header]="Delete"
-                [sortable]="false"
-                [width]="50"
-                [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add User"></i>
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Survey Template"></i>
                 </ng-template>
-                <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-trash pull-right" (click)="deleteItem(item.id,$event)" title="Delete User"></i>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Survey Template"></i>
                 </ng-template>
 
             </data-table-column>
         </data-table>
     </div>
 </div>
+

@@ -1,19 +1,29 @@
 <div class="row">
-    <h2>Users</h2>
-    <div class="col-sm-4">
+    <h2>Message Templates</h2>
+    <div class="col-sm-3">
         <input placeholder="Search"
                class="form-control" />
+    </div>
+    <div class="col-sm-3">
+        <div class="col-sm-3">
+            <label for="drpdwnTypeFilter" class="pull-right">Type</label>
+        </div>
+        <div class="col-sm-9">
+            <select id="drpdwnTypeFilter" class="form-control">
+            </select>
+        </div>
+
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
         <data-table id="users-grid"
-                    [items]="users"
-                    [itemCount]="userCount"
+                    [items]="messageTemplates"
+                    [itemCount]="messageTemplateCount"
                     (reload)="reloadItems($event)"
 
                     [limit]="10"
-                    [sortBy]="'username'"
+                    [sortBy]="'name'"
                     [sortAsc]="true"
 
                     [indexColumn]="false"
@@ -26,50 +36,55 @@
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit User"></i>
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Message Template"></i>
                 </ng-template>
             </data-table-column>
 
             <data-table-column
-                    [property]="'username'"
-                    [header]="'Username'"
+                    [property]="'template_type'"
+                    [header]="'Type'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'email'"
-                    [header]="'Email Address'"
+                    [property]="'name'"
+                    [header]="'Name'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'last_name'"
-                    [header]="'Last Name'"
+                    [property]="'subject'"
+                    [header]="'Subject'"
+                    [sortable]="true"
+                    [resizable]="false"></data-table-column>
+
+            <data-table-column
+                    [property]="'created_at'"
+                    [header]="'Create Date'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'first_name'"
-                    [header]="'First Name'"
+                    [property]="'updated_at'"
+                    [header]="'Update Date'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
+
             <data-table-column
-                    [property]="'role_name'"
-                    [header]="'Role'"
-                    [sortable]="true"
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
                     [resizable]="false">
-            </data-table-column>
-            <data-table-column
-                [header]="Delete"
-                [sortable]="false"
-                [width]="50"
-                [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add User"></i>
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Message Template"></i>
                 </ng-template>
-                <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-trash pull-right" (click)="deleteItem(item.id,$event)" title="Delete User"></i>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Message Template"></i>
                 </ng-template>
 
             </data-table-column>

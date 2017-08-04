@@ -12,7 +12,7 @@ import { UserService } from '../_services/index';
 })
 
 export class UserListComponent implements OnInit {
-    userResource: DataTableResource<User> = null;
+    dataResource: DataTableResource<User> = null;
     currentUser: User;
     users: User[] = [];
     userCount:number = 0;
@@ -26,7 +26,7 @@ export class UserListComponent implements OnInit {
 
     };
 
-    @ViewChild(DataTable) userTable: DataTable;
+    @ViewChild(DataTable) viewTable: DataTable;
 
 
     constructor(private userService: UserService) {
@@ -37,25 +37,25 @@ export class UserListComponent implements OnInit {
     }
 
     reloadItems(params: DataTableParams) {
-        if (this.userResource == null) {
-            this.loadAllUsers(params);
+        if (this.dataResource == null) {
+            this.loadAll(params);
         } else {
             this.queryDataSource(params);
         }
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers(this.userTable.displayParams); });
+    deleteItem(id: number) {
+        this.userService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
     }
 
     private queryDataSource (params: DataTableParams) {
-        this.userResource.query(params).then(users => this.users = users);
-        this.userResource.count().then(count => this.userCount = count);
+        this.dataResource.query(params).then(users => this.users = users);
+        this.dataResource.count().then(count => this.userCount = count);
     }
 
-    private loadAllUsers(params: DataTableParams) {
+    private loadAll(params: DataTableParams) {
         this.userService.getAll().subscribe(users => {
-            this.userResource = new DataTableResource<User>(users);
+            this.dataResource = new DataTableResource<User>(users);
             this.queryDataSource(params);
         });
     }

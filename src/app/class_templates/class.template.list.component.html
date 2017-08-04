@@ -1,5 +1,5 @@
 <div class="row">
-    <h2>Users</h2>
+    <h2>Class Templates</h2>
     <div class="col-sm-4">
         <input placeholder="Search"
                class="form-control" />
@@ -8,13 +8,13 @@
 <div class="row">
     <div class="col-sm-12">
         <data-table id="users-grid"
-                    [items]="users"
-                    [itemCount]="userCount"
+                    [items]="classTemplates"
+                    [itemCount]="classTemplateCount"
                     (reload)="reloadItems($event)"
 
                     [limit]="10"
-                    [sortBy]="'username'"
-                    [sortAsc]="true"
+                    [sortBy]="'start'"
+                    [sortAsc]="false"
 
                     [indexColumn]="false"
                     [substituteRows]="true"
@@ -26,53 +26,67 @@
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit User"></i>
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Class Template"></i>
                 </ng-template>
             </data-table-column>
 
             <data-table-column
-                    [property]="'username'"
-                    [header]="'Username'"
+                    [property]="'course_id'"
+                    [header]="'Course'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
             <data-table-column
-                    [property]="'email'"
-                    [header]="'Email Address'"
+                    [property]="'name'"
+                    [header]="'Name'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
             <data-table-column
-                    [property]="'last_name'"
-                    [header]="'Last Name'"
+                    [property]="'start'"
+                    [header]="'Start Date & Time'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
             <data-table-column
-                    [property]="'first_name'"
-                    [header]="'First Name'"
+                    [property]="'duration'"
+                    [header]="'Duration'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
             <data-table-column
-                    [property]="'role_name'"
-                    [header]="'Role'"
+                    [property]="'location'"
+                    [header]="'Location'"
                     [sortable]="true"
                     [resizable]="false">
             </data-table-column>
             <data-table-column
-                [header]="Delete"
-                [sortable]="false"
-                [width]="50"
-                [resizable]="false">
+                    [property]="'capacity'"
+                    [header]="'Capacity'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [property]="'description'"
+                    [header]="'Description'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+            <data-table-column
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add User"></i>
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Class"></i>
                 </ng-template>
-                <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-trash pull-right" (click)="deleteItem(item.id,$event)" title="Delete User"></i>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Class"></i>
                 </ng-template>
 
             </data-table-column>
         </data-table>
     </div>
 </div>
+

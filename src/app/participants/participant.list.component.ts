@@ -2,20 +2,20 @@
  * Created by Josh Vogel on 8/1/2017.
  */
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { ClassObject, User } from '../_models/index';
+import { Participant, User } from '../_models/index';
 import { DataTable, DataTableResource, DataTableTranslations, DataTableParams } from 'angular-4-data-table';
-import { ClassService } from '../_services/index';
+import {ParticipantService} from "../_services/index";
 
 @Component({
     moduleId: module.id,
-    templateUrl: './class.list.component.html'
+    templateUrl: './participant.list.component.html'
 })
 
-export class ClassListComponent implements OnInit {
-    dataResource: DataTableResource<ClassObject> = null;
+export class ParticipantListComponent implements OnInit {
+    dataResource: DataTableResource<Participant> = null;
     currentUser: User;
-    classes: ClassObject[] = [];
-    classCount:number = 0;
+    participants: Participant[] = [];
+    participantCount:number = 0;
 
     translations = <DataTableTranslations> {
         indexColumn: 'Index column',
@@ -29,7 +29,7 @@ export class ClassListComponent implements OnInit {
     @ViewChild(DataTable) viewTable: DataTable;
 
 
-    constructor(private ClassService: ClassService) {
+    constructor(private ParticipantService: ParticipantService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -45,18 +45,17 @@ export class ClassListComponent implements OnInit {
     }
 
     deleteItem(id: number) {
-        this.ClassService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
+        this.ParticipantService.delete(id).subscribe(() => { this.loadAll(this.viewTable.displayParams); });
     }
 
     private queryDataSource (params: DataTableParams) {
-        this.dataResource.query(params).then(classes => this.classes = classes);
-        this.dataResource.count().then(count => this.classCount = count);
+        this.dataResource.query(params).then(participants => this.participants = participants);
+        this.dataResource.count().then(count => this.participantCount = count);
     }
 
     private loadAll(params: DataTableParams) {
-        this.ClassService.getAll().subscribe(classes => {
-            this.dataResource = new DataTableResource<ClassObject>(classes);
-            this.dataResource = new DataTableResource<ClassObject>(classes);
+        this.ParticipantService.getAll().subscribe(participants => {
+            this.dataResource = new DataTableResource<Participant>(participants);
             this.queryDataSource(params);
         });
     }

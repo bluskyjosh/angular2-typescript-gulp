@@ -4,6 +4,10 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
     // array in local storage for registered users
     let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    let surveys: any[] = JSON.parse(localStorage.getItem('surveys')) ||
+        [{id:1, title:"Test Survey", description:"This is only a test.", published:true, authenticated:true, created_by:1,
+            last_modified_by: 1, has_referral_code:true, referral_code_required:true, created_at:"2017-08-04 12:00:00",
+            updated_at:"2017-08-04 12:00:00"}];
 
     // configure fake backend
     backend.connections.subscribe((connection: MockConnection) => {
@@ -41,22 +45,16 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                 return;
             }
 
-            // get users
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Get) {
+            // get surveys
+            if (connection.request.url.endsWith('/api/surveys') && connection.request.method === RequestMethod.Get) {
                 // check for fake auth token in header and return users if valid, this security is
                 // implemented server side in a real application
-                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: users })));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
-                }
-
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: surveys })));
                 return;
             }
 
             // get user by id
-            if (connection.request.url.match(/\/api\/users\/\d+$/)
+            if (connection.request.url.match(/\/api\/surveys\/\d+$/)
                 && connection.request.method === RequestMethod.Get) {
                 // check for fake auth token in header and return user if valid,
                 // this security is implemented server side in a real application
@@ -64,11 +62,11 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                     // find user by id in users array
                     let urlParts = connection.request.url.split('/');
                     let id = parseInt(urlParts[urlParts.length - 1], 10);
-                    let matchedUsers = users.filter(user => { return user.id === id; });
-                    let user = matchedUsers.length ? matchedUsers[0] : null;
+                    let matchedSurveys = surveys.filter(survey => { return survey.id === id; });
+                    let survey = matchedSurveys.length ? matchedSurveys[0] : null;
 
                     // respond 200 OK with user
-                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: user })));
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: survey })));
                 } else {
                     // return 401 not authorised if token is null or invalid
                     connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
@@ -78,20 +76,20 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             // create user
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Post) {
+            if (connection.request.url.endsWith('/api/surveys') && connection.request.method === RequestMethod.Post) {
                 // get new user object from post body
-                let newUser = JSON.parse(connection.request.getBody());
+                let newSurvey = JSON.parse(connection.request.getBody());
 
                 // validation
-                let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
-                if (duplicateUser) {
-                    return connection.mockError(new Error('Username "' + newUser.username + '" is already taken'));
+                let duplicateSurvey = surveys.filter(survey => { return survey.title === newSurvey.title; }).length;
+                if (duplicateSurvey) {
+                    return connection.mockError(new Error('Survey Title "' + newSurvey.title + '" is already taken'));
                 }
 
                 // save new user
-                newUser.id = users.length + 1;
-                users.push(newUser);
-                localStorage.setItem('users', JSON.stringify(users));
+                newSurvey.id = surveys.length + 1;
+                surveys.push(newSurvey);
+                localStorage.setItem('surveys', JSON.stringify(surveys));
 
                 // respond 200 OK
                 connection.mockRespond(new Response(new ResponseOptions({ status: 200 })));
@@ -100,7 +98,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             // delete user
-            if (connection.request.url.match(/\/api\/users\/\d+$/)
+            if (connection.request.url.match(/\/api\/surveys\/\d+$/)
                 && connection.request.method === RequestMethod.Delete) {
                 // check for fake auth token in header and return user
                 // if valid, this security is implemented server side in a real application
@@ -108,12 +106,12 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                     // find user by id in users array
                     let urlParts = connection.request.url.split('/');
                     let id = parseInt(urlParts[urlParts.length - 1], 10);
-                    for (let i = 0; i < users.length; i++) {
-                        let user = users[i];
-                        if (user.id === id) {
+                    for (let i = 0; i < surveys.length; i++) {
+                        let survey = surveys[i];
+                        if (survey.id === id) {
                             // delete user
-                            users.splice(i, 1);
-                            localStorage.setItem('users', JSON.stringify(users));
+                            surveys.splice(i, 1);
+                            localStorage.setItem('surveys', JSON.stringify(surveys));
                             break;
                         }
                     }

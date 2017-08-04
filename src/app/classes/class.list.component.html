@@ -8,7 +8,7 @@
         <button class="btn btn-default"(click)="advancedSearch()">Advanced Search</button>
     </div>
     <div class="col-sm-2 pull-right">
-        <button class="btn btn-default" (click)="editSelected()">Edit Selected</button>
+        <button class="btn btn-default pull-right" (click)="editSelected()">Edit Selected</button>
     </div>
 </div>
 <div class="row">
@@ -34,7 +34,7 @@
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableCell let-item="item">
-                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editClass(item.id,$event)" title="Edit User"></i>
+                    <i class="btn fa fa-pencil-square-o pull-left" (click)="editItem(item.id,$event)" title="Edit Class"></i>
                 </ng-template>
             </data-table-column>
 
@@ -97,8 +97,12 @@
                     [sortable]="false"
                     [width]="50"
                     [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Class"></i>
+                </ng-template>
                 <ng-template #dataTableCell let-item="item" >
-                    <i class="btn fa fa-trash pull-right" [hidden]="!item.can_delete" (click)="deleteClass(item.id,$event)" title="Delete User"></i>
+                    <i class="btn fa fa-trash pull-right"
+                       [hidden]="!item.can_delete" (click)="deleteItem(item.id,$event)" title="Delete Class"></i>
                 </ng-template>
 
             </data-table-column>
