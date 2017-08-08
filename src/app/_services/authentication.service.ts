@@ -25,7 +25,7 @@ export class AuthenticationService {
                 if (token && token.token) {
                     // store user details and jwt token in local storage to keep
                     // user logged in between page refreshes
-                    localStorage.setItem('userToken', JSON.stringify(token));
+                    sessionStorage.setItem('userToken', JSON.stringify(token));
                 }
 
                 return token;
@@ -35,8 +35,8 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('userToken');
+        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem('userToken');
     }
 
     
@@ -45,7 +45,7 @@ export class AuthenticationService {
             //got back a user
             let user = response.json();
             if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
             }
             return user;
         });
@@ -53,7 +53,7 @@ export class AuthenticationService {
 
     protected jwt() {
         // create authorization header with jwt token
-        let userToken = JSON.parse(localStorage.getItem('userToken'));
+        let userToken = JSON.parse(sessionStorage.getItem('userToken'));
         if (userToken && userToken.token) {
             let headers = new Headers({ 'Authorization': 'Bearer ' + userToken.token });
             headers.append('Content-Type', 'application/json');

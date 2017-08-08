@@ -25,7 +25,7 @@ export abstract class ApiService {
 
     protected jwt() {
         // create authorization header with jwt token
-        let userToken = JSON.parse(localStorage.getItem('userToken'));
+        let userToken = JSON.parse(sessionStorage.getItem('userToken'));
         if (userToken && userToken.token) {
             let headers = new Headers({ 'Authorization': 'Bearer ' + userToken.token });
             headers.append('Content-Type', 'application/json');

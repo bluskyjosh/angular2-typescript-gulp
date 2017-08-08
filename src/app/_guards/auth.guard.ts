@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-        if (localStorage.getItem('currentUser')) {
+        if (sessionStorage.getItem('currentUser')) {
             // logged in so return true
             this.navigatorService.toggleNavigation(state.url);
             return true;

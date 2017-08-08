@@ -30,7 +30,7 @@
                 </ng-template>
                 <ng-template #dataTableCell let-item="item">
                     <div class="text-center">
-                        <i class="btn fa fa-pencil-square-o" (click)="editItem(item.id,$event)" title="Edit Participant"></i>
+                        <i class="btn fa fa-pencil-square-o fa-lg" (click)="editItem(item.id,$event)" title="Edit Report Template"></i>
                     </div>
                 </ng-template>
             </data-table-column>
@@ -76,11 +76,11 @@
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
+                    <i class="btn btn-default fa fa-plus-square fa-lg" (click)="addItem($event)" title="Add Report Template"></i>
                 </ng-template>
                 <ng-template #dataTableCell let-item="item" >
-                    <i class="btn fa fa-trash pull-right"
-                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
+                    <i class="btn fa fa-trash fa-lg pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Report Template"></i>
                 </ng-template>
 
             </data-table-column>

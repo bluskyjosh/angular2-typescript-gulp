@@ -27,13 +27,22 @@
                     [sortAsc]="true"
 
 
-                    [selectColumn]="true"
                     [selectOnRowClick]="true"
                     [multiSelect]="false"
                     [indexColumn]="false"
                     [substituteRows]="true"
                     [translations]="translations"
         >
+            <data-table-column>
+                <ng-template #dataTableHeader let-item="item">
+                    View Items
+                </ng-template>
+                <ng-template #dataTableCell let-item="item">
+                    <div class="text-center">
+                        <i class="fa fa-arrow-circle-o-right fa-lg" title="View Batch Items"></i>
+                    </div>
+                </ng-template>
+            </data-table-column>
 
             <data-table-column
                 [property]="'name'"
@@ -49,17 +58,28 @@
                     [resizable]="false">
             </data-table-column>
 
+            <data-table-column>
+                <ng-template #dataTableHeader let-item="item">
+                    Active?
+                </ng-template>
+
+                <ng-template #dataTableCell let-item="item">
+                    <input type="checkbox" aria-label="" [checked]="item.active" (change)="activeBatchChanged(item)" />
+                </ng-template>
+
+            </data-table-column>
+
             <data-table-column
                     [header]="Delete"
                     [sortable]="false"
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
+                    <i class="btn btn-default fa fa-plus-square fa-lg" (click)="addItem($event)" title="Add Normative Item Batch"></i>
                 </ng-template>
                 <ng-template #dataTableCell let-item="item" >
-                    <i class="btn fa fa-trash pull-right"
-                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
+                    <i class="btn fa fa-trash fa-lg pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Normative Item Batch"></i>
                 </ng-template>
 
             </data-table-column>
@@ -90,7 +110,7 @@
                 </ng-template>
                 <ng-template #dataTableCell let-item="item">
                     <div class="text-center">
-                        <i class="btn fa fa-pencil-square-o" (click)="editItem(item.id,$event)" title="Edit Normative Item"></i>
+                        <i class="btn fa fa-pencil-square-o fa-lg" (click)="editItem(item.id,$event)" title="Edit Normative Item"></i>
                     </div>
                 </ng-template>
             </data-table-column>
@@ -129,11 +149,11 @@
                     [width]="50"
                     [resizable]="false">
                 <ng-template #dataTableHeader let-item="item">
-                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
+                    <i class="btn btn-default fa fa-plus-square fa-lg" (click)="addItem($event)" title="Add Normative Item"></i>
                 </ng-template>
                 <ng-template #dataTableCell let-item="item" >
-                    <i class="btn fa fa-trash pull-right"
-                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
+                    <i class="btn fa fa-trash fa-lg pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Normative Item"></i>
                 </ng-template>
 
             </data-table-column>
