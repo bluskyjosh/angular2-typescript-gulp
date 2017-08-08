@@ -1,0 +1,1 @@
+export * from './normative.item.list.component';

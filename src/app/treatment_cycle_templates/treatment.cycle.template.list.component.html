@@ -1,0 +1,88 @@
+<div class="row">
+    <h2>Treatment Cycle Templates</h2>
+    <div class="col-sm-4">
+        <input placeholder="Search"
+               class="form-control" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <data-table id="users-grid"
+                    [items]="treatmentCycleTemplates"
+                    [itemCount]="treatmentCycleTemplateCount"
+                    (reload)="reloadItems($event)"
+
+                    [limit]="10"
+                    [sortBy]="'created_at'"
+                    [sortAsc]="true"
+
+                    [indexColumn]="false"
+                    [substituteRows]="true"
+                    [translations]="translations"
+        >
+            <data-table-column
+                    [header]="Edit"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    View/ Edit
+                </ng-template>
+                <ng-template #dataTableCell let-item="item">
+                    <div class="text-center">
+                        <i class="btn fa fa-pencil-square-o" (click)="editItem(item.id,$event)" title="Edit Participant"></i>
+                    </div>
+                </ng-template>
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'referral_code'"
+                    [header]="'Referral Code'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'active'"
+                    [header]="'Enabled'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'duration'"
+                    [header]="'Duration'"
+                    [sortable]="true"
+                    [resizable]="false"></data-table-column>
+
+            <data-table-column
+                    [property]="'description'"
+                    [header]="'Description'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'created_at'"
+                    [header]="'Create Date'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
+                </ng-template>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
+                </ng-template>
+
+            </data-table-column>
+        </data-table>
+    </div>
+</div>

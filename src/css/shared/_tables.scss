@@ -4,4 +4,13 @@ table {
   th,tr {
     height: $row-height;
   }
+
+}
+
+.no-pagination-limit > .data-table-wrapper
+  > data-table-pagination
+  > .pagination-box
+  > .pagination-controllers
+  > .pagination-limit {
+    display:none;
 }

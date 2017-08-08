@@ -1,0 +1,1 @@
+export * from './treatment.cycle.template.list.component';

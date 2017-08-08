@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { ApiService } from './api.service';
+import { AppSettings } from '../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -10,7 +10,12 @@ let options = new RequestOptions({headers: headers});
 
 
 @Injectable()
-export class AuthenticationService extends ApiService {
+export class AuthenticationService {
+
+    ApiUrl = AppSettings.apiUrl;
+
+    constructor(protected http: Http) { }
+
 
     login(username: string, password: string) {
         return this.http.post(this.ApiUrl + 'authenticate',
@@ -44,5 +49,15 @@ export class AuthenticationService extends ApiService {
             }
             return user;
         });
+    }
+
+    protected jwt() {
+        // create authorization header with jwt token
+        let userToken = JSON.parse(localStorage.getItem('userToken'));
+        if (userToken && userToken.token) {
+            let headers = new Headers({ 'Authorization': 'Bearer ' + userToken.token });
+            headers.append('Content-Type', 'application/json');
+            return new RequestOptions({ headers: headers });
+        }
     }
 }

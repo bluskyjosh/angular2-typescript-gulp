@@ -20,8 +20,13 @@ import {AlertService,
     ClassService,
     ClassTemplateService,
     MessageTemplateService,
+    NormativeItemService,
+    NormativeItemBatchService,
+    NormativeItemCategoryService,
     ParticipantService,
     SurveyTemplateService,
+    ReportTemplateService,
+    TreatmentCycleTemplateService,
     NavigatorService,
     UserService
     } from './_services/index';
@@ -33,7 +38,10 @@ import {ClassListComponent} from "./classes/index";
 import {ClassTemplateListComponent} from "./class_templates/index";
 import {ParticipantListComponent} from "./participants/index";
 import {MessageTemplateListComponent} from "./message_templates/index";
+import {NormativeItemListComponent} from "./normative_items/index";
+import {ReportTemplateListComponent} from "./report_templates/index";
 import {SurveyTemplateListComponent} from "./survey_templates/index";
+import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/index";
 
 
 
@@ -56,8 +64,11 @@ import {SurveyTemplateListComponent} from "./survey_templates/index";
         HomeComponent,
         LoginComponent,
         MessageTemplateListComponent,
+        NormativeItemListComponent,
         ParticipantListComponent,
+        ReportTemplateListComponent,
         SurveyTemplateListComponent,
+        TreatmentCycleTemplateListComponent,
         RegisterComponent,
         UserListComponent
     ],
@@ -69,8 +80,13 @@ import {SurveyTemplateListComponent} from "./survey_templates/index";
         ClassService,
         ClassTemplateService,
         MessageTemplateService,
+        NormativeItemService,
+        NormativeItemBatchService,
+        NormativeItemCategoryService,
         ParticipantService,
+        ReportTemplateService,
         SurveyTemplateService,
+        TreatmentCycleTemplateService,
         NavigatorService,
         UserService,
 

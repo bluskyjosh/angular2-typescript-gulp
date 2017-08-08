@@ -1,0 +1,1 @@
+export * from './report.template.list.component';

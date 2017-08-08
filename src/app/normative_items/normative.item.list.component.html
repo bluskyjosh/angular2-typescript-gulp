@@ -1,0 +1,142 @@
+<div class="row">
+    <h2>Normative Items</h2>
+    <div class="col-sm-9 col-sm-offset-3">
+        <div class="col-sm-4 no-padding-left">
+            <input id="txtNormativeItemSearch" class="form-control" placeholder="Search" />
+        </div>
+        <div class="col-sm-8 no-padding-right">
+            <div class="btn-group pull-right">
+                <button class="btn btn-default" (click)="openCategories">Manage Categories</button>
+                <button class="btn btn-default" (click)="openImporter">Import</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <data-table #batchGrid id="batchGrid"
+                    [items]="batches"
+                    [itemCount]="batchCount"
+                    class="no-pagination-limit"
+                    (reload)="reloadBatches($event)"
+                    (rowClick)="selectedBatchChanged($event)"
+
+
+                    [limit]="10"
+                    [sortBy]="'created_at'"
+                    [sortAsc]="true"
+
+
+                    [selectColumn]="true"
+                    [selectOnRowClick]="true"
+                    [multiSelect]="false"
+                    [indexColumn]="false"
+                    [substituteRows]="true"
+                    [translations]="translations"
+        >
+
+            <data-table-column
+                [property]="'name'"
+                [header]="'Name'"
+                [sortable]="true"
+                [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'created_at'"
+                    [header]="'Create Date'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
+                </ng-template>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
+                </ng-template>
+
+            </data-table-column>
+        </data-table>
+    </div>
+
+    <div class="col-sm-9">
+        <data-table #normativeItemGrid id="normativeItemGrid"
+                    [items]="normativeItems"
+                    [itemCount]="normativeItemCount"
+                    (reload)="reloadNormativeItems($event)"
+
+                    [limit]="10"
+                    [sortBy]="'created_at'"
+                    [sortAsc]="true"
+
+                    [indexColumn]="false"
+                    [substituteRows]="true"
+                    [translations]="translations"
+        >
+            <data-table-column
+                    [header]="Edit"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    View/ Edit
+                </ng-template>
+                <ng-template #dataTableCell let-item="item">
+                    <div class="text-center">
+                        <i class="btn fa fa-pencil-square-o" (click)="editItem(item.id,$event)" title="Edit Normative Item"></i>
+                    </div>
+                </ng-template>
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'name'"
+                    [header]="'Name'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'value'"
+                    [header]="'Value'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'description'"
+                    [header]="'Description'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'category_id'"
+                    [header]="'Category'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [header]="Delete"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    <i class="btn btn-default fa fa-plus-square" (click)="addItem($event)" title="Add Participant"></i>
+                </ng-template>
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-trash pull-right"
+                       (click)="deleteItem(item.id,$event)" title="Delete Participant"></i>
+                </ng-template>
+
+            </data-table-column>
+        </data-table>
+    </div>
+</div>

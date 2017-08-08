@@ -9,10 +9,19 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class ApiService {
+export abstract class ApiService {
     ApiUrl = AppSettings.apiUrl;
 
     constructor(protected http: Http) { }
+
+    abstract getAll(parent_id?: number): Observable<any>;
+    abstract getById(id:number, parent_id?:number): Observable<any>;
+    abstract create (Object:object, parent_id?: number): Observable<any>;
+    abstract update (Object:object, parent_id?: number): Observable<any>;
+    abstract delete(id:number, parent_id?: number): Observable<any>;
+
+
+
 
     protected jwt() {
         // create authorization header with jwt token
