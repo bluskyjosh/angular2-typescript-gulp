@@ -23,6 +23,7 @@ import {AlertService,
     NormativeItemService,
     NormativeItemBatchService,
     NormativeItemCategoryService,
+    NotificationService,
     ParticipantService,
     SurveyTemplateService,
     ReportTemplateService,
@@ -39,6 +40,7 @@ import {ClassTemplateListComponent} from "./class_templates/index";
 import {ParticipantListComponent} from "./participants/index";
 import {MessageTemplateListComponent} from "./message_templates/index";
 import {NormativeItemListComponent} from "./normative_items/index";
+import {NotificationLogListComponent} from "./notification_logs/index";
 import {ReportTemplateListComponent} from "./report_templates/index";
 import {SurveyTemplateListComponent} from "./survey_templates/index";
 import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/index";
@@ -65,6 +67,7 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         LoginComponent,
         MessageTemplateListComponent,
         NormativeItemListComponent,
+        NotificationLogListComponent,
         ParticipantListComponent,
         ReportTemplateListComponent,
         SurveyTemplateListComponent,
@@ -83,6 +86,7 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         NormativeItemService,
         NormativeItemBatchService,
         NormativeItemCategoryService,
+        NotificationService,
         ParticipantService,
         ReportTemplateService,
         SurveyTemplateService,

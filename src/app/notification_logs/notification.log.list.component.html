@@ -1,0 +1,99 @@
+<div class="row">
+    <h2>Notification Logs</h2>
+    <div class="col-sm-4">
+        <input placeholder="Search"
+               class="form-control" />
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-default" (click)="openAdvancedSearch($event)">Advanced Search</button>
+    </div>
+    <div class="col-sm-4 pull-right">
+        <label class="form-label" for="filterBtnGroup">Filter</label>
+        <div class="btn-group pull-right no-padding-left" id="filterBtnGroup">
+            <button class="btn btn-default" (click)="filter == 'all'">All</button>
+            <button class="btn btn-default" (click)="filter == 'pending'">Pending</button>
+            <button class="btn btn-default" (click)="filter == 'sent'">Send</button>
+            <button class="btn btn-default" (click)="filter == 'failed'">Failed</button>
+            <button class="btn btn-default" (click)="filter == 'cancelled'">Cancelled</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <data-table id="users-grid"
+                    [items]="notifications"
+                    [itemCount]="notificationCount"
+                    (reload)="reloadItems($event)"
+
+                    [limit]="10"
+                    [sortBy]="'created_at'"
+                    [sortAsc]="false"
+
+                    [indexColumn]="false"
+                    [substituteRows]="true"
+                    [translations]="translations"
+        >
+            <data-table-column
+                    [header]="View"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableHeader let-item="item">
+                    View
+                </ng-template>
+                <ng-template #dataTableCell let-item="item">
+                    <div class="text-center">
+                        <i class="btn fa fa-search fa-lg" (click)="viewItem(item.id,$event)" title="View Notification"></i>
+                    </div>
+                </ng-template>
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'notification_type'"
+                    [header]="'Event'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'to'"
+                    [header]="'Recipients'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'subject'"
+                    [header]="'Subject'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'created_at'"
+                    [header]="'Created'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [property]="'status'"
+                    [header]="'Status'"
+                    [sortable]="true"
+                    [resizable]="false">
+            </data-table-column>
+
+            <data-table-column
+                    [header]="Cancel"
+                    [sortable]="false"
+                    [width]="50"
+                    [resizable]="false">
+                <ng-template #dataTableCell let-item="item" >
+                    <i class="btn fa fa-ban fa-lg pull-right"
+                       (click)="cancelItem(item.id,$event)" title="Cancel Notification"></i>
+                </ng-template>
+
+            </data-table-column>
+        </data-table>
+    </div>
+</div>
