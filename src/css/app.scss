@@ -19,10 +19,16 @@ app {
   box-shadow: 0 0.1em 1.5em rgba($imp-gray-dark, 0.5);
   color: $white;
   display: flex;
+  justify-content: space-between;
   padding: 1em;
+
+  a {
+    color: $white;
+    cursor: pointer;
+  }
 }
 
-  .header__toggle {
+.header__toggle {
     background: transparent;
     border: 0.15rem solid $white;
     border-left: 0;

@@ -1,0 +1,60 @@
+<div class="row">
+    <h2>Organization Settings</h2>
+</div>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <form name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+            <div class="row">
+                <h3>Basic Settings</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid}">
+                        <label class="form-label" for="name">Organization Name</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               [ngModel]="organization.name" #name="ngModel" required />
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dept_name.valid}">
+                        <label class="form-label" for="dept_name">Department Name</label>
+                        <input type="text" class="form-control" id="dept_name" name="dept_name"
+                               [ngModel]="organization.dept_name" #dept_name="ngModel" required />
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dept_website.valid}">
+                        <label class="form-label" for="dept_website">Department Website</label>
+                        <input type="text" class="form-control" id="dept_website" name="dept_website"
+                               [ngModel]="organization.dept_websit" #dept_website="ngModel" required />
+                    </div>
+
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !url.valid}">
+                        <label class="form-label" for="url">Organization Url</label>
+                        <input type="text" class="form-control" id="url" name="name"
+                               [ngModel]="organization.url" #url="ngModel" required />
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email_domain.valid}">
+                        <label class="form-label" for="email_domain">Email Domain</label>
+                        <input type="text" class="form-control" id="email_domain" name="email_domain"
+                               [ngModel]="organization.email_domain" #email_domain="ngModel" required />
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !timezone.valid}">
+                        <label class="form-label" for="timezone">Timezone</label>
+                        <input type="text" class="form-control" id="timezone" name="timezone"
+                               [ngModel]="organization.timezone" #timezone="ngModel" required />
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !banner.valid}">
+                        <label class="form-label" for="banner">Banner Image</label>
+                        <input type="text" class="form-control" id="banner" name="banner"
+                               [ngModel]="organization.banner" #banner="ngModel" required />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

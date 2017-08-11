@@ -9,6 +9,7 @@ export * from './normative.item';
 export * from './normative.item.batch';
 export * from './normative.item.category';
 export * from './notification';
+export * from './organization';
 export * from './participant';
 export * from './report.template';
 export * from './survey.template';

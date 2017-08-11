@@ -77,7 +77,8 @@ gulp.task("libs", () => {
             'zone.js/dist/**',
             '@angular/**/bundles/**',
             'angular-4-data-table/**',
-            'ng-sidebar/**/*.js'
+            'ng-sidebar/**/*.js',
+            'ng2-dropdown/**/*.js'
         ], {cwd: "node_modules/**"}) /* Glob required here. */
         .pipe(gulp.dest("build/lib"));
 });

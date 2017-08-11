@@ -2,7 +2,9 @@
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { AppSettings } from '../environments/environment';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
+import { User} from "../_models/index";
 
 let headers = new Headers();
 headers.append('Content-Type', 'application/json');
@@ -13,8 +15,15 @@ let options = new RequestOptions({headers: headers});
 export class AuthenticationService {
 
     ApiUrl = AppSettings.apiUrl;
+    private currentUser: Subject<User>;
 
-    constructor(protected http: Http) { }
+    constructor(protected http: Http) {
+        this.currentUser = <Subject<User>>new Subject();
+    }
+
+    get getCurrentUser() : Observable<User> {
+        return this.currentUser.asObservable();
+    }
 
 
     login(username: string, password: string) {
@@ -47,6 +56,7 @@ export class AuthenticationService {
             if (user) {
                 sessionStorage.setItem('currentUser', JSON.stringify(user));
             }
+            this.currentUser.next(user);
             return user;
         });
     }

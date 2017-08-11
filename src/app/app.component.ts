@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
-import {NavigatorService } from './_services/index';
+import {NavigatorService, AuthenticationService } from './_services/index';
+import {User} from "./_models/index";
+
 
 @Component({
     selector: "app",
@@ -13,6 +15,8 @@ import {NavigatorService } from './_services/index';
 export class AppComponent implements OnInit {
 
     private showNavigation: boolean = true;
+
+    currentUser: User = new User();
 
      _sidebarOptions = {
         opened: false,
@@ -34,10 +38,14 @@ export class AppComponent implements OnInit {
         keyCode: 27
     };
 
-    constructor(private navigatorService: NavigatorService) { }
+    constructor(private navigatorService: NavigatorService, private authenticationService: AuthenticationService) {
+        this.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    }
 
     ngOnInit() {
         this._sidebarOptions.opened = false;
+        this.authenticationService.getCurrentUser.subscribe(
+            res => this.currentUser = res);
         this.navigatorService.displayNavigation.subscribe(
             res => this.showNavigation = res );
         this.navigatorService.closeNavigation.subscribe(res => this._sidebarOptions.opened = res );

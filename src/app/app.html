@@ -24,12 +24,6 @@
                 <h3>Menu</h3>
             </div>
         </div>
-        <p><a [routerLink]="['/login']">Logout</a></p>
-        <div class="row">
-            <div class="col-sm-12">
-                <a [routerLink]="['/account_settings']">Account Settings</a>
-            </div>
-        </div>
         <div class="row">
             <div class="col-sm-12">
                 <h5>Classes</h5>
@@ -70,11 +64,20 @@
 <!-- main app container -->
 <div ng-sidebar-content class="contents">
     <header class="app-header">
-        <div *ngIf="showNavigation">
+        <div class="col-sm-1" *ngIf="showNavigation">
             <button class="header__toggle" (click)="_toggleSidebar()">
                 Toggle Sidebar
             </button>
         </div>
+
+        <div class="col-sm-3 dropdown" dropdown *ngIf="showNavigation">
+            <a class="pull-right" dropdown-open>{{currentUser.first_name}} {{currentUser.last_name}}</a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a [routerLink]="['/login']">Logout</a></li>
+                <li><a [routerLink]="['/account_settings']">Account Settings</a></li>
+            </ul>
+        </div>
+
     </header>
     <div class="container">
         <div class="row">

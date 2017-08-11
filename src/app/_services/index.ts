@@ -9,6 +9,7 @@ export * from './normative.item.service';
 export * from './normative.item.batch.service';
 export * from './normative.item.category.service';
 export * from './notification.service';
+export * from './organization.service';
 export * from './participant.service';
 export * from './report.template.service';
 export * from './survey.template.service';

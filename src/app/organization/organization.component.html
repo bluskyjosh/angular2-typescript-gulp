@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="settings">Organization Settings</a></li>
+    <li routerLinkActive="active"><a routerLink="property_groups">Structured Property Groups</a></li>
+    <li routerLinkActive="active"><a routerLink="actions">Organization Actions</a></li>
+    <li routerLinkActive="active"><a routerLink="expressions">ExecutionExpressions</a></li>
+</ul>
+<div class="tab-content">
+    <router-outlet></router-outlet>
+</div>
