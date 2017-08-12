@@ -4,6 +4,7 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SidebarModule } from 'ng-sidebar';
 import { DropdownModule } from 'ng2-dropdown';
+import {InlineEditorModule} from '@qontu/ngx-inline-editor';
 import { DataTableModule } from 'angular-4-data-table';
 
 // used to create fake backend
@@ -26,6 +27,7 @@ import {AlertService,
     NormativeItemCategoryService,
     NotificationService,
     OrganizationService,
+    OrganizationIpRuleService,
     ParticipantService,
     SurveyTemplateService,
     ReportTemplateService,
@@ -43,7 +45,7 @@ import {ParticipantListComponent} from "./participants/index";
 import {MessageTemplateListComponent} from "./message_templates/index";
 import {NormativeItemListComponent} from "./normative_items/index";
 import {NotificationLogListComponent} from "./notification_logs/index";
-import {OrganizationComponent, OrganizationSettingsComponent} from "./organization/index";
+import {OrganizationComponent, OrganizationSettingsComponent, OrganizationSecurityComponent} from "./organization/index";
 import {ReportTemplateListComponent} from "./report_templates/index";
 import {SurveyTemplateListComponent} from "./survey_templates/index";
 import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/index";
@@ -59,6 +61,7 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         DataTableModule,
         FormsModule,
         HttpModule,
+        InlineEditorModule,
         SidebarModule.forRoot(),
         DropdownModule,
         routing
@@ -75,6 +78,7 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         NotificationLogListComponent,
         OrganizationComponent,
         OrganizationSettingsComponent,
+        OrganizationSecurityComponent,
         ParticipantListComponent,
         ReportTemplateListComponent,
         SurveyTemplateListComponent,
@@ -95,6 +99,7 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         NormativeItemCategoryService,
         NotificationService,
         OrganizationService,
+        OrganizationIpRuleService,
         ParticipantService,
         ReportTemplateService,
         SurveyTemplateService,

@@ -1,57 +1,161 @@
 <div class="row">
-    <h2>Organization Settings</h2>
+    <div class="col-sm-12">
+        <h2>Organization Settings</h2>
+    </div>
 </div>
 <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-sm-8 col-sm-offset-2">
         <form name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
             <div class="row">
                 <h3>Basic Settings</h3>
             </div>
             <div class="row">
                 <div class="col-sm-6">
+
+                    <!--Organization Name-->
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid}">
                         <label class="form-label" for="name">Organization Name</label>
                         <input type="text" class="form-control" id="name" name="name"
-                               [ngModel]="organization.name" #name="ngModel" required />
+                               [(ngModel)]="organization.name" #name="ngModel" required />
                     </div>
 
+                    <!--Organization Department Name-->
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dept_name.valid}">
                         <label class="form-label" for="dept_name">Department Name</label>
                         <input type="text" class="form-control" id="dept_name" name="dept_name"
-                               [ngModel]="organization.dept_name" #dept_name="ngModel" required />
+                               [(ngModel)]="organization.dept_name" #dept_name="ngModel" />
                     </div>
 
+                    <!--Organization Department Website-->
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dept_website.valid}">
                         <label class="form-label" for="dept_website">Department Website</label>
                         <input type="text" class="form-control" id="dept_website" name="dept_website"
-                               [ngModel]="organization.dept_websit" #dept_website="ngModel" required />
+                               [(ngModel)]="organization.dept_websit" #dept_website="ngModel" />
+                    </div>
+
+                    <!--Organization Banner Image-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !banner.valid}">
+                        <label class="form-label" for="banner">Banner Image</label>
+                        <input type="text" class="form-control" id="banner" name="banner"
+                               [(ngModel)]="organization.banner" #banner="ngModel" required />
                     </div>
 
 
                 </div>
                 <div class="col-sm-6">
+
+                    <!--Organization Url-->
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !url.valid}">
                         <label class="form-label" for="url">Organization Url</label>
                         <input type="text" class="form-control" id="url" name="name"
-                               [ngModel]="organization.url" #url="ngModel" required />
+                               [(ngModel)]="organization.url" #url="ngModel" required />
                     </div>
 
+                    <!--Organization Email-->
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email_domain.valid}">
                         <label class="form-label" for="email_domain">Email Domain</label>
                         <input type="text" class="form-control" id="email_domain" name="email_domain"
-                               [ngModel]="organization.email_domain" #email_domain="ngModel" required />
+                               [(ngModel)]="organization.email_domain" #email_domain="ngModel" required />
                     </div>
 
+                    <!--Organization Timezone-->
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !timezone.valid}">
                         <label class="form-label" for="timezone">Timezone</label>
-                        <input type="text" class="form-control" id="timezone" name="timezone"
-                               [ngModel]="organization.timezone" #timezone="ngModel" required />
+                        <select id="timezone" name="timezone" class="form-control" #timezone="ngModel" [(ngModel)]="organization.timezone">
+                            <option *ngFor="let t of timezones" [ngValue]="t.machine_name">{{t.display_name}}</option>
+                        </select>
+<!--                        <input type="text" class="form-control" id="timezone" name="timezone"
+                               [(ngModel)]="organization.timezone" #timezone="ngModel" required />-->
                     </div>
 
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !banner.valid}">
-                        <label class="form-label" for="banner">Banner Image</label>
-                        <input type="text" class="form-control" id="banner" name="banner"
-                               [ngModel]="organization.banner" #banner="ngModel" required />
+                </div>
+            </div>
+
+            <div class="row">
+                <h3>Primary Contact</h3>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <!--Organization Contact Name-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !contact_name.valid}">
+                        <label class="form-label" for="contact_name">Name</label>
+                        <input type="text" class="form-control" id="contact_name" name="contact_name"
+                               [(ngModel)]="organization.contact_name" #contact_name="ngModel" required />
+                    </div>
+
+                    <!--Organization Contact Phone number-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !contact_phone.valid}">
+                        <label class="form-label" for="contact_phone">Phone Number</label>
+                        <input type="text" class="form-control" id="contact_phone" name="contact_phone"
+                               [(ngModel)]="organization.contact_phone" #contact_phone="ngModel" required />
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <!--Organization Contact Email Address-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !contact_email.valid}">
+                        <label class="form-label" for="contact_email">Email Address</label>
+                        <input type="text" class="form-control" id="contact_email" name="contact_email"
+                               [(ngModel)]="organization.contact_email" #contact_email="ngModel" required />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <h3>Notification Settings</h3>
+                <div class="col-sm-12">
+                    <div class="row">
+                        <h4>Notifications</h4>
+                        <div class="col-sm-6">
+                            <!--Notification From-->
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !notification_from.valid}">
+                                <label class="form-label" for="notification_from">From</label>
+                                <input type="text" class="form-control" id="notification_from" name="notification_from"
+                                       [(ngModel)]="organization.notification_from" #notification_from="ngModel" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <!--Notification Mailbox-->
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !notification_mailbox.valid}">
+                                <label class="form-label" for="notification_mailbox">Mailbox</label>
+                                <input type="text" class="form-control" id="notification_mailbox" name="notification_mailbox"
+                                       [(ngModel)]="organization.notification_mailbox" #notification_mailbox="ngModel" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4>Survey Invites</h4>
+                        <div class="col-sm-6">
+                            <!--Notification From-->
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !invite_from.valid}">
+                                <label class="form-label" for="invite_from">From</label>
+                                <input type="text" class="form-control" id="invite_from" name="invite_from"
+                                       [(ngModel)]="organization.invite_from" #invite_from="ngModel" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <!--Notification Mailbox-->
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !invite_mailbox.valid}">
+                                <label class="form-label" for="invite_mailbox">Mailbox</label>
+                                <input type="text" class="form-control" id="invite_mailbox" name="invite_mailbox"
+                                       [(ngModel)]="organization.invite_mailbox" #invite_mailbox="ngModel" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Submit Row-->
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="form-group text-center">
+                        <button [disabled]="loading" class="btn btn-primary">Save</button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>
                 </div>
             </div>

@@ -1,0 +1,142 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Security Settings</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form name="iprule-form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+            <div class="row">
+                <h3>IP Address Restrictions</h3>
+                <p>IP Addresses may be added one at a time, or a range specified in CIDR notation</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <data-table id="ip-rules-grid"
+                                [items]="ipRules"
+                                [itemCount]="ipRuleCount"
+                                (reload)="reloadItems($event)"
+
+                                limit="5"
+                                [sortBy]="cidr"
+                                [sortAsc]="true"
+
+                                [indexColumn]="false"
+                                [substituteRows]="true"
+                                [translations]="translations">
+
+                        <!--IP Address-->
+                        <data-table-column
+                            [header]="'IP Address'"
+                            [sortable]="true"
+                            [resizable]="false">
+                            <ng-template #dataTableCell let-item="item">
+                                <inline-editor
+                                        type="text"
+                                        placeholder="IP Address"
+                                        [(ngModel)]="item.cidr"
+                                        [ngModelOptions]="{standalone: true}"
+                                        empty="New IP Address"
+                                        (onSave)="saveEditable(item,$event)"
+                                        size="20">
+                                </inline-editor>
+
+                            </ng-template>
+                        </data-table-column>
+
+                        <!--Rule Type-->
+                        <data-table-column
+                            [header]="'Allow/Deny'"
+                            [sortable]="true"
+                            [resizable]="false">
+                            <ng-template #dataTableCell let-item="item">
+                                <inline-editor
+                                    type="select"
+                                    [(ngModel)]="item.type"
+                                    [ngModelOptions]="{standalone: true}"
+                                    (onSave)="saveEditable(item,$event)"
+                                    [options]="IpRuleOptions"></inline-editor>
+
+                            </ng-template>
+                        </data-table-column>
+
+                        <!--Add/Delete Column-->
+                        <data-table-column
+                            [header]="Delete"
+                            [sortable]="false"
+                            [resizable]="false"
+                            [width]="50">
+                            <ng-template #dataTableHeader let-item="item">
+                                <i class="btn btn-default fa fa-plus-square fa-lg" (click)="addItem($event)" title="Add IP Rule"></i>
+                            </ng-template>
+                            <ng-template #dataTableCell let-item="item">
+                                <div class="text-center">
+                                    <i class="btn fa fa-trash fa-lg" (click)="deleteItem(item.id,$event)" title="Delete IP Rule"></i>
+                                </div>
+                            </ng-template>
+                        </data-table-column>
+                    </data-table>
+
+                </div>
+            </div>
+        </form>
+
+        <form name="server-form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <h4>Authorization Server</h4>
+                    <!--Authorization Server URI-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !auth_server.valid}">
+                        <label class="form-label" for="auth_server">Authorization Server URI</label>
+                        <input type="text" class="form-control" id="auth_server" name="auth_server"
+                               [(ngModel)]="organization.auth_server" #auth_server="ngModel" />
+                        <p>Entering a URI will cause the system to use the authorization server to authenticate users (staff and students).</p>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-6">
+                    <h4>LDAP Server</h4>
+                    <!--LDAP Server URI-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ldap_server.valid}">
+                        <label class="form-label" for="ldap_server">LDAP Server URI</label>
+                        <input type="text" class="form-control" id="ldap_server" name="ldap_server"
+                               [(ngModel)]="organization.ldap_server" #ldap_server="ngModel" />
+                        <p>Entering a URI will cause the system to use the LDAP server to look up participants by identifier for personal information.</p>
+                    </div>
+
+
+                    <!--Distinguished Name-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ldap_dn.valid}">
+                        <label class="form-label" for="ldap_dn">Distinguished Name</label>
+                        <input type="text" class="form-control" id="ldap_dn" name="ldap_dn"
+                               [(ngModel)]="organization.ldap_dn" #ldap_dn="ngModel" />
+                        <p>The Distinguished Name of the entry at which to start the search.</p>
+
+                    </div>
+
+                    <!--Filter Field Name-->
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ldap_filter.valid}">
+                        <label class="form-label" for="ldap_filter">Filter Field Name</label>
+                        <input type="text" class="form-control" id="ldap_filter" name="ldap_filter"
+                               [(ngModel)]="organization.ldap_filter" #ldap_filter="ngModel" />
+                        <p>Identifier fieldname of the to use by the ldap server to lookup participants for personal information.</p>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!--Submit Row-->
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="form-group text-center">
+                        <button [disabled]="loading" class="btn btn-primary">Save</button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

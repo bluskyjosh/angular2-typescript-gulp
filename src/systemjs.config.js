@@ -22,6 +22,7 @@
             'angular-4-data-table':'npm:angular-4-data-table',
             'ng-sidebar': 'npm:ng-sidebar',
             'ng2-dropdown': 'npm:ng2-dropdown',
+            '@qontu/ngx-inline-editor': 'npm:@qontu/ngx-inline-editor/ngx-inline-editor.umd.js',
             'rxjs': 'npm:rxjs'
         },
         // packages tells the System loader how to load when no filename and/or no extension
@@ -37,6 +38,9 @@
             'ng-sidebar':{
                 main: 'lib/index',
                 defaultExtension:'js'
+            },
+            '@qontu/ngx-inline-editor': {
+                defaultExtension:"js"
             },
             'ng2-dropdown': {
                 main:"index",

@@ -78,7 +78,8 @@ gulp.task("libs", () => {
             '@angular/**/bundles/**',
             'angular-4-data-table/**',
             'ng-sidebar/**/*.js',
-            'ng2-dropdown/**/*.js'
+            'ng2-dropdown/**/*.js',
+            '@qontu/ngx-inline-editor/**/*.js'
         ], {cwd: "node_modules/**"}) /* Glob required here. */
         .pipe(gulp.dest("build/lib"));
 });

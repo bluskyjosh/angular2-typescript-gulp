@@ -11,6 +11,8 @@ import {Organization} from "../_models/organization";
 
 export class OrganizationSettingsComponent implements OnInit {
     organization: Organization = new Organization();
+    timezones: any[];
+    loading = false;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -19,6 +21,22 @@ export class OrganizationSettingsComponent implements OnInit {
 
     ngOnInit() {
         this.organizationService.get().subscribe( organiztion => this.organization = organiztion);
+        this.timezones = this.organizationService.availableTimezones();
+    }
+
+    update() {
+        this.loading = true;
+        this.organizationService.update(this.organization).subscribe(
+            data => {
+                this.organization = data;
+                this.alertService.success("Save Successful");
+                this.loading = false;
+            },
+            error => {
+                this.alertService.error(this.alertService.messageParse(error));
+                this.loading = false;
+            }
+        );
     }
 
 }

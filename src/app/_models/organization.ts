@@ -1,3 +1,5 @@
+import {OrganizationIpRule} from "./organization.ip.rule";
+
 export class Organization {
     id:number;
     name:string;
@@ -38,5 +40,6 @@ export class Organization {
     user_count:number;
     participant_count:number;
     survey_sessions_count:number;
+    ip_rules: OrganizationIpRule[];
 
 }
