@@ -1,7 +1,7 @@
 <div class="row form-group">
     <div class="col-sm-4">
         <label for="drpdwnCategory" class="form-label">Category</label>
-        <select id="drpdwnCategory" name="drpdwnCategory" class="form-control" [(ngModel)]="selectedCategory">
+        <select id="drpdwnCategory" name="drpdwnCategory" class="form-control" [(ngModel)]="SingleExpression.category">
             <option value="">--Select Category--</option>
             <option *ngFor="let c of categories" [ngValue]="c.machine_name">{{c.display_name}}</option>
         </select>
@@ -10,10 +10,10 @@
 </div>
 <div class="row form-group">
     <div class="col-sm-12">
-        <div *ngIf="selectedCategory == 'course'">
+        <div *ngIf="SingleExpression.category == 'course'">
             <course-expression
-                    [(ngModel)]="singleExpression"
-                    [(Courses)]="courses" ngDefaultControl></course-expression>
+                    [SingleExpression]="SingleExpression"
+                    [Courses]="courses"></course-expression>
         </div>
         <!--<div *ngIf="category == 'class'">
             <class-expression

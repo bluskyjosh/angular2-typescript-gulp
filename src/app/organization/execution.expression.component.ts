@@ -1,14 +1,15 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataTable, DataTableResource, DataTableTranslations, DataTableParams } from 'angular-4-data-table';
-import { AlertService, ExecutionExpressionService} from '../_services/index';
+import { AlertService, CourseService, ExecutionExpressionService, UserService} from '../_services/index';
 import {Course, User, ExecutionExpression} from "../_models/index";
 import {SingleExpression} from "../_models/single.expression";
+import {SingleExpressionComponent} from "../_directives/_single_expression/single.expression.component";
 
 
 @Component({
     moduleId: module.id.toString(),
-    templateUrl: './execution.expression.component.html'
+    templateUrl: './execution.expression.component.html',
 })
 
 export class ExecutionExpressionComponent implements OnInit {
@@ -30,18 +31,24 @@ export class ExecutionExpressionComponent implements OnInit {
     aggregateConditions: Object[];
     courses: Course[];
     providers: User[];
+    extendedProperties: Object[];
 
     @ViewChild('expressionGrid') expressionGrid: DataTable;
     @ViewChild('conditionGrid') conditionGrid: DataTable;
-    extendedProperties: Object[];
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private ExecutionExpressionService: ExecutionExpressionService,
+        private CourseService: CourseService,
+        private UserService: UserService,
         private alertService: AlertService) { }
 
     ngOnInit() {
         this.ExecutionExpressionService.expressionTypes().subscribe(executionTypes => this.actionTypes = executionTypes);
+        this.ExecutionExpressionService.aggregateOperators().subscribe( aggregateTypes => this.aggregateConditions = aggregateTypes);
+        this.CourseService.getAll().subscribe(courses => this.courses = courses);
+        this.UserService.getProviders().subscribe(providers => this.providers = providers);
     }
 
     reloadExecutionExpressions(params: DataTableParams, reload: boolean = false) {

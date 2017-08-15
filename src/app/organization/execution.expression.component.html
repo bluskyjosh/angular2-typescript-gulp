@@ -88,7 +88,7 @@
     <div class="col-sm-7 col-sm-offset-1" [hidden]="selectedExpression.id == null">
         <div class="row">
             <div class="col-sm-12">
-                <h3>Expression Details</h3>
+                <h3 style="padding-top:5px;">Expression Details</h3>
             </div>
         </div>
         <div class="row">
@@ -134,10 +134,12 @@
                                 [header]="'Conditions'"
                                 [sortable]="false"
                                 [resizable]="false">
-                            <ng-template #dataTableCell let-item="singleExpression">
+                            <ng-template #dataTableCell let-item="item">
                                <single-expression
-                                        [(ngModel)]="singleExpression"
-                                        [ngModelOptions]="{standalone: true}">
+                                       [Courses]="courses"
+                                       [Providers]="providers"
+                                       [ExtendedProperties]="extendedProperties"
+                                       [SingleExpression]="item">
                                 </single-expression>
                             </ng-template>
                         </data-table-column>

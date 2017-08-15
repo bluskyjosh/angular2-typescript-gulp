@@ -1,23 +1,51 @@
-import { Component, forwardRef, Input,  Output, EventEmitter } from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { Component, Input,  Output, EventEmitter } from '@angular/core';
+
 import { Course, SingleExpression, User} from "../../_models/index";
 
-const noop = () => { };
 @Component({
     moduleId: module.id,
     selector:'single-expression',
     templateUrl: 'single.expression.component.html',
 
-    providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SingleExpressionComponent), multi:true }
-    ]
+
 })
 
 export class SingleExpressionComponent {
-    @Input() Courses: Course[];
-    @Input() Providers: User[];
-    @Input() ExtendedProperties: Object[];
+    private singleExpression: SingleExpression = new SingleExpression();
+    private courses: Course[];
+    private providers: User[];
+    private extendedProperties: Object[];
 
+
+
+
+    @Input() get Courses() {
+        return this.courses;
+    }
+    set Courses(courses:Course[]) {
+        this.courses = courses;
+    }
+
+    @Input() get Providers() {
+        return this.providers;
+    }
+    set Providers(providers: User[]) {
+        this.providers = providers;
+    }
+
+    @Input() get ExtendedProperties() {
+        return this.extendedProperties;
+    }
+    set ExtendedProperties(extendedProperties:Object[]) {
+        this.extendedProperties = extendedProperties;
+    }
+
+    @Input() get SingleExpression() {
+        return this.singleExpression;
+    }
+    set SingleExpression(singleExpression: SingleExpression) {
+        this.singleExpression = singleExpression;
+    }
 
     categories = [
         {machine_name:'course', display_name:'Course'},
@@ -27,40 +55,7 @@ export class SingleExpressionComponent {
 
     selectedCategory:string = "";
 
-    private singleExpression: SingleExpression;
-
-    private onTouchedCallback: () => void = noop;
-    private onChangeCallback: (_: any) => void = noop;
-
-    //get accessor
-    get value(): SingleExpression {
-        return this.singleExpression;
-    };
-
-    set value(v: SingleExpression) {
-        if (v !== this.singleExpression) {
-            this.singleExpression = v;
-            this.onChangeCallback(v);
-        }
-    }
-
-    onBlur() {
-        this.onTouchedCallback();
-    }
-
-    writeValue(value: SingleExpression) {
-        if (value !== this.singleExpression) {
-            this.singleExpression = value;
-        }
-    }
-
-    registerOnChange(fn: any) {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any) {
-        this.onTouchedCallback = fn;
-    }
+    constructor() { };
 
 
 

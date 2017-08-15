@@ -33,4 +33,12 @@ export class ExecutionExpressionService extends ApiService {
         return this.http.get(this.ApiUrl + 'execution_expression_types', this.jwt()).map((response: Response) => response.json());
     }
 
+    comparisonOperators() {
+        return this.http.get(this.ApiUrl + 'comparison_operators', this.jwt()).map((response: Response) => response.json());
+    }
+
+    aggregateOperators() {
+        return this.http.get(this.ApiUrl + 'boolean_aggregate_operators', this.jwt()).map((response: Response) => response.json());
+    }
+
 }
