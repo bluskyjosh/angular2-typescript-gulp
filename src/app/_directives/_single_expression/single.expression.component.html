@@ -1,7 +1,7 @@
 <div class="row form-group">
     <div class="col-sm-4">
         <label for="drpdwnCategory" class="form-label">Category</label>
-        <select id="drpdwnCategory" name="drpdwnCategory" class="form-control" [(ngModel)]="SingleExpression.category">
+        <select id="drpdwnCategory" name="drpdwnCategory" class="form-control" [(ngModel)]="singleExpression.category" (change)="selectedCategoryChanged($event)">
             <option value="">--Select Category--</option>
             <option *ngFor="let c of categories" [ngValue]="c.machine_name">{{c.display_name}}</option>
         </select>
@@ -10,10 +10,57 @@
 </div>
 <div class="row form-group">
     <div class="col-sm-12">
-        <div *ngIf="SingleExpression.category == 'course'">
-            <course-expression
-                    [SingleExpression]="SingleExpression"
-                    [Courses]="courses"></course-expression>
+        <div *ngIf="singleExpression.category == 'course'">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="drpdownCourse" class="form-label">Course Name</label>
+                    <select id="drpdownCourse" name="drpdownCourse" class="form-control" [(ngModel)]="singleExpression.left.course_id">
+                        <option value="">-Select Course-</option>
+                        <option *ngFor="let c of Courses" [ngValue]="c.id">{{c.name}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="drpdownOperator" class="form-label">Course Status Is:</label>
+                            <select id="drpdownOperator" name="drpdownOperator" class="form-control" [(ngModel)]="singleExpression.middle.status_operator">
+                                <option value="">-Select-</option>
+                                <option *ngFor="let o of equality_operators" [ngValue]="o">{{o}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="drpdownStatus" class="form-label">Status</label>
+                            <select id="drpdownStatus" name="drpdownStatus" class="form-control" [(ngModel)]="singleExpression.right.course_status">
+                                <option value="">-Select Status-</option>
+                                <option *ngFor="let s of statuses" [ngValue]="s.machine_name">{{s.display_name}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="drpdownCount" class="form-label">Status Count Is:</label>
+                            <select id="drpdownCount" name="drpdownCount" class="form-control" [(ngModel)]="singleExpression.middle.count_operator">
+                                <option value="">-No Count-</option>
+                                <option *ngFor="let o of comparison_operators" [ngValue]="o">{{o}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-6" [hidden]="singleExpression.middle.count_operator == ''">
+                            <label for="txtCount" class="form-label">Value</label>
+                            <input id="txtCount"
+                                   class="form-control text-right"
+                                   type="number"
+                                   min="0"
+                                   [(ngModel)]="singleExpression.right.course_count" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <!--<div *ngIf="category == 'class'">
             <class-expression

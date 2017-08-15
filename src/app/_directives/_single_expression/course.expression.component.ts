@@ -19,7 +19,10 @@ export class CourseExpressionComponent extends BaseExpression {
         this.courses = courses;
     }
     ngOnInit() {
+        this.SingleExpression.left.course_id = '';
+        this.SingleExpression.middle.status_operator = '';
         this.SingleExpression.middle.count_operator = '';
+        this.SingleExpression.right.course_status = '';
         this.SingleExpression.right.course_count = 0;
     }
 

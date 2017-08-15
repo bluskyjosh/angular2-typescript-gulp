@@ -77,6 +77,49 @@ export class ExecutionExpressionComponent implements OnInit {
         }
     }
 
+    addExecutionExpression(event: any) {
+        let newExpression = new ExecutionExpression();
+        this.executionExpressions.push(newExpression);
+    }
+
+    addCondition(event: any) {
+        let newCondition = new SingleExpression();
+        newCondition.category = '';
+        newCondition.left = {};
+        newCondition.middle = {};
+        newCondition.right = {};
+        this.selectedExpressionConditions.push(newCondition);
+    }
+
+    update() {
+        this.loading = true;
+        let updateExpression = new ExecutionExpression();
+
+        let items = this.conditionGrid.items;
+        updateExpression = this.selectedExpression;
+        updateExpression.conditions = JSON.stringify(items);
+
+         this.ExecutionExpressionService.update(updateExpression).subscribe(
+            data => {
+                let index = this.executionExpressions.indexOf(this.selectedExpression);
+                this.executionExpressions[index] = data;
+                 this.selectedExpression = data;
+                 this.loadSingleExpressions(this.conditionGrid.displayParams);
+                 this.alertService.success("Save Successful");
+                 this.loading = false;
+             },
+             error => {
+                 this.alertService.error(this.alertService.messageParse(error));
+                 this.loading = false;
+             }
+         );
+    }
+
+    deleteCondition(item:SingleExpression, $event:any) {
+        let index = this.conditionGrid.items.indexOf(item);
+        this.conditionGrid.items.splice(index, 1);
+    }
+
     private loadAllExecutionExpressions(params: DataTableParams) {
         this.ExecutionExpressionService.getAll().subscribe(executionExpressions => {
             this.executionExpressionResource = new DataTableResource<ExecutionExpression>(executionExpressions);
@@ -101,19 +144,6 @@ export class ExecutionExpressionComponent implements OnInit {
         this.singleExpressionResource.count().then(count => this.conditionCount = count);
     }
 
-    update() {
-        this.loading = true;
-        // this.organizationService.update(this.organization).subscribe(
-        //     data => {
-        //         this.organization = data;
-        //         this.alertService.success("Save Successful");
-        //         this.loading = false;
-        //     },
-        //     error => {
-        //         this.alertService.error(this.alertService.messageParse(error));
-        //         this.loading = false;
-        //     }
-        // );
-    }
+
 
 }

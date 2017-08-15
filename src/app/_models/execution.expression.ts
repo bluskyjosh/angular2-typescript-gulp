@@ -6,7 +6,7 @@ export class ExecutionExpression {
     expression_type:string;
     active: boolean;
     aggregate_operator: string;
-    conditions: string;
+    conditions: any;
     created_at: string;
     updated_at: string;
 }

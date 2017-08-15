@@ -55,15 +55,30 @@ export class SingleExpressionComponent {
 
     selectedCategory:string = "";
 
+    equality_operators = ['=', '≠'];
+    comparison_operators = ['=', '≠', '<', '>', '<=', '>='];
+    statuses = [ {machine_name:'not_registered', display_name:'Not Registered'},
+        {machine_name:'registered', display_name:'Registered'},
+        {machine_name:'completed', display_name:'Completed'},
+        {machine_name:'absent', display_name:'Absent'}];
+
     constructor() { };
 
-
-
-    clear(expression: SingleExpression) {
-        expression.left = new Object();
-        expression.middle = new Object();
-        expression.right = new Object();
+    selectedCategoryChanged(event: any) {
+        switch (this.SingleExpression.category) {
+            case 'course':
+                this.singleExpression.left = {course_id: ''};
+                this.singleExpression.middle = {status_operator: '', count_operator: ''};
+                this.singleExpression.right = {course_status: '', course_count: 0};
+            case 'class':
+            case 'participant':
+            default:
+        }
 
     }
+
+
+
+
 
 }
