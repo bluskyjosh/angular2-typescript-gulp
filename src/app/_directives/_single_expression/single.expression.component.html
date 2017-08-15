@@ -1,0 +1,32 @@
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="drpdwnCategory" class="form-label">Category</label>
+        <select id="drpdwnCategory" name="drpdwnCategory" class="form-control" [(ngModel)]="selectedCategory">
+            <option value="">--Select Category--</option>
+            <option *ngFor="let c of categories" [ngValue]="c.machine_name">{{c.display_name}}</option>
+        </select>
+    </div>
+
+</div>
+<div class="row form-group">
+    <div class="col-sm-12">
+        <div *ngIf="selectedCategory == 'course'">
+            <course-expression
+                    [(ngModel)]="singleExpression"
+                    [(Courses)]="courses" ngDefaultControl></course-expression>
+        </div>
+        <!--<div *ngIf="category == 'class'">
+            <class-expression
+                    [(single-expression)]="singleExpression"
+                    [(courses)]="courses"
+                    [(providers)]="providers"></class-expression>
+        </div>
+        <div *ngIf="category == 'participant'">
+            <participant-expression
+                    [(single-expression)]="singleExpression"
+                    [(courses)]="courses"
+                    [(treatment-cycle-templates)]="treatmentCycleTemplates"
+                    [(extended-properties)]="extendedProperties"></participant-expression>
+        </div>-->
+    </div>
+</div>

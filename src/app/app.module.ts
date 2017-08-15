@@ -15,12 +15,16 @@ import { BaseRequestOptions } from '@angular/http';
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
-import { AlertComponent } from './_directives/index';
+import { AlertComponent,
+    SingleExpressionComponent,
+    CourseExpressionComponent } from './_directives/index';
 import { AuthGuard, NavGuard } from './_guards/index';
 import {AlertService,
     AuthenticationService,
     ClassService,
     ClassTemplateService,
+    CourseService,
+    ExecutionExpressionService,
     MessageTemplateService,
     NormativeItemService,
     NormativeItemBatchService,
@@ -45,7 +49,10 @@ import {ParticipantListComponent} from "./participants/index";
 import {MessageTemplateListComponent} from "./message_templates/index";
 import {NormativeItemListComponent} from "./normative_items/index";
 import {NotificationLogListComponent} from "./notification_logs/index";
-import {OrganizationComponent, OrganizationSettingsComponent, OrganizationSecurityComponent} from "./organization/index";
+import {OrganizationComponent,
+    OrganizationSettingsComponent,
+    OrganizationSecurityComponent,
+    ExecutionExpressionComponent} from "./organization/index";
 import {ReportTemplateListComponent} from "./report_templates/index";
 import {SurveyTemplateListComponent} from "./survey_templates/index";
 import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/index";
@@ -71,6 +78,7 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         AlertComponent,
         ClassListComponent,
         ClassTemplateListComponent,
+        ExecutionExpressionComponent,
         HomeComponent,
         LoginComponent,
         MessageTemplateListComponent,
@@ -81,6 +89,8 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         OrganizationSecurityComponent,
         ParticipantListComponent,
         ReportTemplateListComponent,
+        SingleExpressionComponent,
+        CourseExpressionComponent,
         SurveyTemplateListComponent,
         TreatmentCycleTemplateListComponent,
         RegisterComponent,
@@ -93,6 +103,8 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         AuthenticationService,
         ClassService,
         ClassTemplateService,
+        CourseService,
+        ExecutionExpressionService,
         MessageTemplateService,
         NormativeItemService,
         NormativeItemBatchService,

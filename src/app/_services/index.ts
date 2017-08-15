@@ -3,6 +3,8 @@ export * from './api.service';
 export * from './authentication.service';
 export * from './class.service';
 export * from './class.template.service';
+export * from './course.service';
+export * from './execution.expression.service';
 export * from './message.template.service';
 export * from './navigator.service';
 export * from './normative.item.service';

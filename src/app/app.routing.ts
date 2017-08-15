@@ -8,7 +8,11 @@ import { MessageTemplateListComponent } from "./message_templates/index";
 import { ParticipantListComponent } from './participants/index';
 import { NormativeItemListComponent} from "./normative_items/index";
 import { NotificationLogListComponent} from "./notification_logs/index";
-import { OrganizationComponent, OrganizationSettingsComponent, OrganizationSecurityComponent} from "./organization/index";
+import { OrganizationComponent,
+    OrganizationSettingsComponent,
+    OrganizationSecurityComponent,
+    ExecutionExpressionComponent
+} from "./organization/index";
 import { ReportTemplateListComponent} from "./report_templates/index";
 import { SurveyTemplateListComponent} from "./survey_templates/index";
 import { TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/index";
@@ -28,7 +32,8 @@ const appRoutes: Routes = [
     {path: 'organization', component: OrganizationComponent, canActivate: [AuthGuard, NavGuard],
         children: [
             {path: 'settings', component: OrganizationSettingsComponent},
-            {path: 'security_settings', component: OrganizationSecurityComponent}
+            {path: 'security_settings', component: OrganizationSecurityComponent},
+            {path: 'expressions', component: ExecutionExpressionComponent }
         ]
     },
     { path: 'participants', component: ParticipantListComponent, canActivate: [AuthGuard, NavGuard]},

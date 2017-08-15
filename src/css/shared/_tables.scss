@@ -16,6 +16,11 @@ table {
 
 }
 
+.no-header-controls > .data-table-wrapper
+  > data-table-header {
+  display: none;
+}
+
 .no-pagination-limit > .data-table-wrapper
   > data-table-pagination
   > .pagination-box

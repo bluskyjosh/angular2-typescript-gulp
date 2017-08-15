@@ -1,0 +1,172 @@
+<div class="row">
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Execution Expressions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="drpdwnActionFilter" class="form-label">Action Type Filter</label>
+                <select id="drpdwnActionFilter" class="form-control"
+                        [(ngModel)]="selectedActionType"
+                        (change)="selectedActionTypeChanged($event)">
+                    <option value="">All Action Types</option>
+                    <option *ngFor="let a of actionTypes" [ngValue]="a.machine_name">{{a.display_name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <data-table #expressionGrid id="expressionGrid"
+                        [items]="executionExpressions"
+                        [itemCount]="executionExpressionCount"
+                        class="no-pagination-limit no-header-controls"
+                        (reload)="reloadExecutionExpressions($event)"
+                        (rowClick)="selectedExpressionChanged($event)"
+
+
+                        [limit]="10"
+                        [sortBy]="'name'"
+                        [sortAsc]="true"
+
+                        [selectOnRowClick]="true"
+                        [multiSelect]="false"
+                        [indexColumn]="false"
+                        [substituteRows]="true"
+            >
+                <data-table-column
+                        [header]="'View Details'"
+                        [sortable]="false"
+                        [resizable]="false"
+                        [width]="80">
+                    <ng-template #dataTableCell let-item="item">
+                        <div class="text-center">
+                            <i class="fa fa-arrow-circle-o-right fa-lg" title="View Details"></i>
+                        </div>
+                    </ng-template>
+                </data-table-column>
+
+                <data-table-column
+                        [property]="'name'"
+                        [header]="'Name'"
+                        [sortable]="true"
+                        [resizable]="false">
+                </data-table-column>
+
+                <data-table-column
+                        [header]="'Active?'"
+                        [resizable]="false"
+                        [width]="80">
+                    <ng-template #dataTableCell let-item="item">
+                        <div class="text-center">
+                            <input type="checkbox" aria-label="" [checked]="item.active" (change)="activeExpressionChanged(item)" />
+                        </div>
+                    </ng-template>
+
+                </data-table-column>
+
+                <data-table-column
+                        [header]="Delete"
+                        [sortable]="false"
+                        [width]="50"
+                        [resizable]="false">
+                    <ng-template #dataTableHeader let-item="item">
+                        <div class="text-center">
+                            <i class="btn btn-default fa fa-plus-square fa-lg" (click)="addItem($event)" title="Add Execution Expression"></i>
+                        </div>
+                    </ng-template>
+                    <ng-template #dataTableCell let-item="item" >
+                        <i class="btn fa fa-trash fa-lg pull-right"
+                           (click)="deleteItem(item.id,$event)" title="Delete Execution Expression"></i>
+                    </ng-template>
+
+                </data-table-column>
+            </data-table>
+        </div>
+    </div>
+
+    <div class="col-sm-7 col-sm-offset-1" [hidden]="selectedExpression.id == null">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Expression Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <form name="execution-epression-detail-form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group" ngClass="{ 'has-error': f.submitted && !name.valid">
+                            <label for="expression-name" class="form-label">Expression Name</label>
+                            <input id="expression-name" name="expression-name" class="form-control" [(ngModel)]="selectedExpression.name"  required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group" ngClass="{ 'has-error': f.submitted && !aggregate.valid">
+                            <label for="aggregate-condition" class="form-label">Aggregate Conditions By</label>
+                            <select id="aggregate-condition"
+                                    name="aggregate-condition"
+                                    class="form-control"
+                                    [(ngModel)]="selectedExpression.aggregate_operator"
+                                     required>
+                                <option value="">--Select Condition--</option>
+                                <option *ngFor="let ac of aggregateConditions" [ngValue]="ac.machine_name">{{ac.display_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <data-table #conditionGrid id="conditionGrid"
+                                [items]="selectedExpressionConditions"
+                                [itemCount]="conditionCount"
+                                class="no-pagination-limit no-header-controls"
+                                (reload)="reloadSingleExpressions($event)"
+
+                                [limit]="10"
+
+                                [selectOnRowClick]="false"
+                                [multiSelect]="false"
+                                [indexColumn]="false"
+                                [substituteRows]="true"
+                    >
+                        <data-table-column
+                                [header]="'Conditions'"
+                                [sortable]="false"
+                                [resizable]="false">
+                            <ng-template #dataTableCell let-item="singleExpression">
+                               <single-expression
+                                        [(ngModel)]="singleExpression"
+                                        [ngModelOptions]="{standalone: true}">
+                                </single-expression>
+                            </ng-template>
+                        </data-table-column>
+
+                        <data-table-column
+                                [header]="Delete"
+                                [sortable]="false"
+                                [width]="50"
+                                [resizable]="false">
+                            <ng-template #dataTableHeader let-item="item">
+                                <i class="btn btn-default fa fa-plus-square fa-lg" (click)="addItem($event)" title="Add Execution Expression"></i>
+                            </ng-template>
+                            <ng-template #dataTableCell let-item="item" >
+                                <i class="btn fa fa-trash fa-lg pull-right"
+                                   (click)="deleteItem(item.id,$event)" title="Delete Execution Expression"></i>
+                            </ng-template>
+
+                        </data-table-column>
+                    </data-table>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                        <button [disabled]="loading" class="btn btn-primary">Save</button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
