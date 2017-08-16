@@ -7,11 +7,12 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <data-table id="users-grid"
+        <data-table id="surveyGrid"
                     [items]="surveyTemplates"
                     [itemCount]="surveyTemplateCount"
                     (reload)="reloadItems($event)"
 
+                    class="no-header-controls fixed-headers"
                     [limit]="10"
                     [sortBy]="'name'"
                     [sortAsc]="true"

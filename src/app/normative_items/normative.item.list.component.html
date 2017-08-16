@@ -1,6 +1,6 @@
 <div class="row">
     <h2>Normative Items</h2>
-    <div class="col-sm-9 col-sm-offset-3">
+    <div class="col-sm-8 col-sm-offset-4">
         <div class="col-sm-4 no-padding-left">
             <input id="txtNormativeItemSearch" class="form-control" placeholder="Search" />
         </div>
@@ -13,11 +13,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <data-table #batchGrid id="batchGrid"
                     [items]="batches"
                     [itemCount]="batchCount"
-                    class="no-pagination-limit"
+                    class="no-pagination-limit no-header-controls fixed-headers"
                     (reload)="reloadBatches($event)"
                     (rowClick)="selectedBatchChanged($event)"
 
@@ -64,7 +64,9 @@
                 </ng-template>
 
                 <ng-template #dataTableCell let-item="item">
-                    <input type="checkbox" aria-label="" [checked]="item.active" (change)="activeBatchChanged(item)" />
+                    <div class="text-center">
+                        <input type="checkbox" aria-label="" [checked]="item.active" (change)="activeBatchChanged(item)" />
+                    </div>
                 </ng-template>
 
             </data-table-column>
@@ -86,12 +88,13 @@
         </data-table>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         <data-table #normativeItemGrid id="normativeItemGrid"
                     [items]="normativeItems"
                     [itemCount]="normativeItemCount"
                     (reload)="reloadNormativeItems($event)"
 
+                    class="no-header-controls fixed-headers"
                     [limit]="10"
                     [sortBy]="'created_at'"
                     [sortAsc]="true"

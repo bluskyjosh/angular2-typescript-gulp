@@ -17,6 +17,5 @@ export * from './organization.ip.rule';
 export * from './participant';
 export * from './report.template';
 export * from './single.expression';
-export * from './single.expression.course';
 export * from './survey.template';
 export * from './treatment.cycle.template';

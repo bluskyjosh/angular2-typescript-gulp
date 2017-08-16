@@ -17,10 +17,11 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <data-table id="message-template-grid"
+        <data-table id="messageTemplateGrid"
                     [items]="messageTemplates"
                     [itemCount]="messageTemplateCount"
                     (reload)="reloadItems($event)"
+                    class="no-header-controls fixed-headers"
 
                     [limit]="10"
                     [sortBy]="'name'"

@@ -16,8 +16,8 @@ import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
 import { AlertComponent,
-    SingleExpressionComponent,
-    CourseExpressionComponent } from './_directives/index';
+    SingleExpressionComponent
+ } from './_directives/index';
 import { AuthGuard, NavGuard } from './_guards/index';
 import {AlertService,
     AuthenticationService,
@@ -90,7 +90,6 @@ import {TreatmentCycleTemplateListComponent} from "./treatment_cycle_templates/i
         ParticipantListComponent,
         ReportTemplateListComponent,
         SingleExpressionComponent,
-        CourseExpressionComponent,
         SurveyTemplateListComponent,
         TreatmentCycleTemplateListComponent,
         RegisterComponent,

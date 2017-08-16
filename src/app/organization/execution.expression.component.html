@@ -20,7 +20,7 @@
             <data-table #expressionGrid id="expressionGrid"
                         [items]="executionExpressions"
                         [itemCount]="executionExpressionCount"
-                        class="no-pagination-limit no-header-controls"
+                        class="no-pagination-limit no-header-controls fixed-headers"
                         (reload)="reloadExecutionExpressions($event)"
                         (rowClick)="selectedExpressionChanged($event)"
 
@@ -120,7 +120,7 @@
                     <data-table #conditionGrid id="conditionGrid"
                                 [items]="selectedExpressionConditions"
                                 [itemCount]="conditionCount"
-                                class="no-pagination-limit no-header-controls"
+                                class="no-pagination-limit no-header-controls fixed-headers"
                                 (reload)="reloadSingleExpressions($event)"
 
                                 [limit]="10"

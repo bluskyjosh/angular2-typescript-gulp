@@ -5,10 +5,9 @@ table {
     height: $row-height;
   }
 
-/*  th {
-    background-color: $imp-blue;
-    color: $white;
-  }*/
+  th {
+    text-decoration: underline;
+  }
 
   tr.selected {
     background-color: $row-active !important;
@@ -16,9 +15,11 @@ table {
 
 }
 
-.no-header-controls > .data-table-wrapper
-  > data-table-header {
-  display: none;
+.no-header-controls > .data-table-wrapper {
+  margin-top: 10px;
+  data-table-header {
+    display: none;
+  }
 }
 
 .no-pagination-limit > .data-table-wrapper
@@ -27,4 +28,14 @@ table {
   > .pagination-controllers
   > .pagination-limit {
     display:none;
+}
+
+.fixed-headers
+  > .data-table-wrapper {
+     .data-table-box {
+         overflow-y: auto;
+         margin-bottom: 20px;
+         max-height: 55%
+
+     }
 }

@@ -20,11 +20,12 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <data-table id="users-grid"
+        <data-table id="notificationsGrid"
                     [items]="notifications"
                     [itemCount]="notificationCount"
                     (reload)="reloadItems($event)"
 
+                    class="no-header-controls fixed-headers"
                     [limit]="10"
                     [sortBy]="'created_at'"
                     [sortAsc]="false"
